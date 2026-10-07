@@ -17,7 +17,7 @@ bun start
 bun run build:preview:android
 ```
 
-All apps pin SDK 57 and include local Expo/EAS CLI dependencies. Local builds require JDK 17 and Android tooling; Boat's reusable `android-build-tools-v3` snapshot supplies them. The generic template contains verified SDK 35/36, CMake 3.22.1/3.30.5, Node/Bun/JDK, Docker and public Maven/package downloads. App code, signing credentials, task caches and populated compiler caches are excluded. Credentials are environment variables, excluded from Git.
+All apps pin SDK 57 and include local Expo/EAS CLI dependencies. Local builds require JDK 17 and Android tooling; Boat's reusable `android-build-tools-v3` snapshot supplies them. The generic template contains verified Android platform 36 and build-tools 35/36, CMake 3.22.1/3.30.5, Node/Bun/JDK, Docker and public Maven/package downloads. App code, signing credentials, task caches and populated compiler caches are excluded. Credentials are environment variables, excluded from Git.
 
 ## Convex build action
 

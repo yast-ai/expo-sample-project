@@ -24,6 +24,12 @@ export PATH="/home/user/.bun/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID
 sudo npm install -g --prefix /opt/pnpm10 pnpm@10.12.3
 sudo npm install -g --prefix /opt/pnpm11 pnpm@11.23.0 yarn@1.22.22
 sudo ln -sf /opt/pnpm11/bin/pnpm /usr/local/bin/pnpm; sudo ln -sf /opt/pnpm11/bin/yarn /usr/local/bin/yarn
+sudo npm install -g --prefix /opt/corepack corepack@0.36.0
+sudo ln -sf /opt/corepack/bin/corepack /usr/local/bin/corepack
+export COREPACK_HOME=/home/user/.cache/node/corepack COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+for manager in pnpm@10.12.3 pnpm@11.23.0 yarn@4.9.1; do corepack "$manager" --version; done
+BUN_INSTALL=/home/user/.bun-1.3.10 bash -c 'curl -fsSL https://bun.sh/install | bash -s -- bun-v1.3.10'
+/home/user/.bun-1.3.10/bin/bun --version | grep -Fx 1.3.10
 sudo tee /usr/local/bin/pnpm10 >/dev/null <<'EOF'
 #!/bin/sh
 exec /opt/pnpm10/bin/pnpm "$@"
@@ -37,9 +43,20 @@ if [ ! -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
   mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
 fi
 set +o pipefail; yes | sdkmanager --licenses >/dev/null; set -o pipefail
-sdkmanager --install 'platform-tools' 'platforms;android-36' 'build-tools;35.0.0' 'build-tools;36.0.0' 'ndk;27.1.12297006' 'cmake;3.22.1' 'cmake;3.30.5'
-chmod -R a+rX "$ANDROID_HOME/build-tools/35.0.0" "$ANDROID_HOME/build-tools/36.0.0"
-for v in 35.0.0 36.0.0; do head -c 4 "$ANDROID_HOME/build-tools/$v/aapt2" >/dev/null || true; for n in $(seq 1 20); do "$ANDROID_HOME/build-tools/$v/aapt2" version >/dev/null 2>&1 && break; sleep 1; done; "$ANDROID_HOME/build-tools/$v/aapt2" version; done
+sdkmanager --install 'platform-tools' 'platforms;android-35' 'platforms;android-36' 'platforms;android-37.0' 'build-tools;35.0.0' 'build-tools;36.0.0' 'build-tools;37.0.0' 'ndk;27.1.12297006' 'cmake;3.22.1' 'cmake;3.30.5'
+# Older sdkmanager/restored filesystems can leave an incomplete package directory.
+if [ ! -x "$ANDROID_HOME/build-tools/37.0.0/aapt2" ]; then
+  tools_archive=$(mktemp /tmp/android-tools37.XXXXXX.zip)
+  tools_stage=$(mktemp -d /tmp/android-tools37.XXXXXX)
+  curl -fsSL https://dl.google.com/android/repository/build-tools_r37_linux.zip -o "$tools_archive"
+  printf '70954e99f4c3d9d46ee70fa32624672fe7cd6ebe  %s\n' "$tools_archive" | sha1sum -c -
+  unzip -q "$tools_archive" -d "$tools_stage"
+  test -s "$tools_stage/android-37.0/aapt2"
+  mkdir -p "$ANDROID_HOME/build-tools/37.0.0"
+  cp -a "$tools_stage/android-37.0/." "$ANDROID_HOME/build-tools/37.0.0/"
+  rm -rf "$tools_archive" "$tools_stage"
+fi
+for v in 35.0.0 36.0.0 37.0.0; do chmod -R a+rX "$ANDROID_HOME/build-tools/$v"; head -c 4 "$ANDROID_HOME/build-tools/$v/aapt2" >/dev/null || true; for n in $(seq 1 20); do "$ANDROID_HOME/build-tools/$v/aapt2" version >/dev/null 2>&1 && break; sleep 1; done; "$ANDROID_HOME/build-tools/$v/aapt2" version; done
 sudo mkdir -p /home/user/.gradle/{caches/modules-2,wrapper/dists} /opt/android-toolchain/{docker,ccache}; sudo chmod -R a+rwx /opt/android-toolchain /home/user/.gradle
 cat >/opt/android-toolchain/docker/Dockerfile <<'EOF'
 FROM node:24.19.0-bookworm
