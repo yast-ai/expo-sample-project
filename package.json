@@ -21,5 +21,8 @@
     "typecheck": "tsc --noEmit",
     "build:preview:android": "eas build --platform android --profile preview --local --non-interactive --output dist/expo-sample-project-preview.apk"
   },
-  "private": false
+  "private": false,
+  "trustedDependencies": [
+    "esbuild"
+  ]
 }
