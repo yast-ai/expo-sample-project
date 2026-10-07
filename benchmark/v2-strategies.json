@@ -1,0 +1,95 @@
+{
+  "version": 2,
+  "project": "native-heavy",
+  "template": "android-build-tools-v5",
+  "sourceSha": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+  "expectedBuilds": 20,
+  "expectedStrategies": 10,
+  "strategies": [
+    {
+      "id": "S1",
+      "name": "6w \u00b7 4G \u00b7 cache",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S2",
+      "name": "4w \u00b7 6G \u00b7 cache",
+      "workers": 4,
+      "heap": 6144,
+      "ccache": true,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S3",
+      "name": "6w \u00b7 6G \u00b7 cache",
+      "workers": 6,
+      "heap": 6144,
+      "ccache": true,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S4",
+      "name": "4w \u00b7 8G \u00b7 cache",
+      "workers": 4,
+      "heap": 8192,
+      "ccache": true,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S5",
+      "name": "8w \u00b7 4G \u00b7 cache",
+      "workers": 8,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S6",
+      "name": "6w \u00b7 4G \u00b7 no compiler cache",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": false,
+      "metroWorkers": 4
+    },
+    {
+      "id": "S7",
+      "name": "6w \u00b7 4G \u00b7 native jobs 4",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "ninjaJobs": 4
+    },
+    {
+      "id": "S8",
+      "name": "Docker \u00b7 6w \u00b7 4G",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "docker": true
+    },
+    {
+      "id": "S9",
+      "name": "6w \u00b7 4G \u00b7 Metro 2",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 2
+    },
+    {
+      "id": "S10",
+      "name": "Cold 6w \u2192 warm 8w \u00b7 4G",
+      "workers": 6,
+      "heap": 4096,
+      "warmWorkers": 8,
+      "warmHeap": 4096,
+      "ccache": true,
+      "metroWorkers": 4
+    }
+  ],
+  "startedAt": 1791414139468
+}
