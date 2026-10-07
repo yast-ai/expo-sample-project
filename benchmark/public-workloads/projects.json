@@ -1,0 +1,61 @@
+{
+  "owner": "yast-ai",
+  "status": "identities-created-no-builds-or-vms-yet",
+  "projects": [
+    {
+      "id": "bluesky-social-app",
+      "name": "Benchmark Bluesky",
+      "sdk": "Expo 57.0.24 / React Native 0.86.3",
+      "sourceURL": "https://github.com/bluesky-social/social-app",
+      "sourceSHA": "ce7bd05d5a1fa7464cccedab9ef2b77853bef1c0",
+      "license": "MIT",
+      "easProjectId": "795672df-036a-4976-956d-581e389c7c1b",
+      "status": "ready-for-local-overlay-and-vm-build",
+      "overlayRequirements": ["Replace upstream Expo owner, project ID, application IDs, scheme, update URL, and Google services file reference only in the generated local overlay.", "Preserve upstream custom native modules and Expo 57 pins.", "Public service configuration is not backend-verified."]
+    },
+    {
+      "id": "expo-forge-mobile",
+      "name": "Benchmark Expo Forge",
+      "sdk": "Expo ~57.0.2 / React Native 0.86.0",
+      "sourceURL": "https://github.com/abed42/expo-forge",
+      "sourceSHA": "3f88072e2233b988b265526176de62e4f211ef4e",
+      "license": "MIT",
+      "easProjectId": "e1c3b45a-7baf-4c8a-adac-f074a69f7106",
+      "status": "ready-for-local-overlay-and-vm-build",
+      "overlayRequirements": ["Install monorepo dependencies from repository root with Bun and retain bun.lock.", "Replace application IDs, owner, project ID, and scheme in a generated local overlay.", "Use inert public Clerk and Supabase placeholders for startup coverage; no auth or backend claim."]
+    },
+    {
+      "id": "expo-with-pdf",
+      "name": "Benchmark Expo PDF",
+      "sdk": "Expo ^57.0.1 / React Native 0.86.0",
+      "sourceURL": "https://github.com/expo/examples/tree/master/with-pdf",
+      "sourceSHA": "76a1dd12978a7ba54b0e318cec01a8578db3b0c0",
+      "license": "MIT",
+      "easProjectId": "a3c2a874-0b11-4d79-8fdc-d5a798b3763e",
+      "status": "ready-for-local-overlay-and-vm-build",
+      "overlayRequirements": ["Retain react-native-pdf and react-native-blob-util config plugins.", "Use an own EAS preview identity and custom development client; Expo Go is unsupported."]
+    },
+    {
+      "id": "react-native-paper-example",
+      "name": "Benchmark React Native Paper",
+      "sdk": "Expo ~56.0.0 / React Native 0.85.3",
+      "sourceURL": "https://github.com/callstack/react-native-paper/tree/main/example",
+      "sourceSHA": "4ffc20ae4ac463cff70f50e22bc627531ec59467",
+      "license": "MIT",
+      "easProjectId": "73a85fc1-780e-4cf7-afa0-600041054b9f",
+      "status": "ready-for-local-overlay-and-vm-build",
+      "overlayRequirements": ["Use Yarn at monorepo root because upstream eas-build-pre-install runs root Yarn install.", "Replace upstream owner, project ID, update URL, application IDs, and scheme only in the generated local overlay."]
+    },
+    {
+      "id": "obytes-template",
+      "name": "Benchmark Obytes",
+      "sdk": "Expo ~54.0.32 / React Native 0.81.5",
+      "sourceURL": "https://github.com/obytes/react-native-template-obytes",
+      "sourceSHA": "fd9b358ed11913d2a49fd9ffa6582fe03ba130e7",
+      "license": "MIT",
+      "easProjectId": "2294f72d-d148-42e6-8000-b909167f768d",
+      "status": "ready-for-local-overlay-and-vm-build",
+      "overlayRequirements": ["Retain pnpm@10.12.3 and pnpm-lock.yaml.", "Do not read or reuse the existing local .env; replace dynamic upstream owner and project ID using neutral preview values in a generated local overlay."]
+    }
+  ]
+}
