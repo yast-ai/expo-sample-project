@@ -1,0 +1,94 @@
+"use node";
+import { BoatApi, Configuration } from "@boatdev/sdk";
+import { v } from "convex/values";
+import { action, internalAction } from "./_generated/server";
+import { internal } from "./_generated/api";
+import { buildStatus, safeLog } from "./buildLog";
+import { setupScript } from "./setupScript";
+import type { Id } from "./_generated/dataModel";
+
+function boat() {
+  if (!process.env.BOAT_API_KEY || !process.env.EXPO_TOKEN) throw new Error("Set BOAT_API_KEY and EXPO_TOKEN first");
+  return new BoatApi(new Configuration({ accessToken: process.env.BOAT_API_KEY }));
+}
+function failure(log: string, error: unknown) {
+  const detail = error instanceof Error ? error.message : String(error);
+  return safeLog(`${log}\n[${new Date().toISOString()}] ${detail}\n[${new Date().toISOString()}] ERROR\n`);
+}
+
+export const runBuild = action({
+  args: {}, returns: v.id("builds"),
+  handler: async (ctx): Promise<Id<"builds">> => {
+    boat();
+    return await ctx.runMutation(internal.builds.create, {});
+  },
+});
+export const start = internalAction({
+  args: { id: v.id("builds") }, returns: v.null(),
+  handler: async (ctx, { id }) => {
+    let sandboxId: string | undefined;
+    try {
+      const created = await boat().create({
+        idempotencyKey: id,
+        createSandboxRequest: {
+          type: "large", ttlSeconds: 3600, noEnv: true, snapshots: false,
+          env: { EXPO_TOKEN: process.env.EXPO_TOKEN! }, setupScript,
+        },
+      });
+      sandboxId = created.sandbox.id;
+      await ctx.runMutation(internal.builds.update, { id, sandboxId, log: "", status: "starting" });
+    } catch (error) {
+      if (sandboxId) await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId });
+      await ctx.runMutation(internal.builds.update, { id, log: failure("", error), status: "error", finishedAt: "failure" });
+    }
+    return null;
+  },
+});
+export const poll = internalAction({
+  args: { id: v.id("builds") }, returns: v.null(),
+  handler: async (ctx, { id }) => {
+    const build = await ctx.runQuery(internal.builds.get, { id });
+    if (!build || build.finishedAt || !build.sandboxId) return null;
+    const api = boat();
+    let log = build.log;
+    try {
+      const { sandbox } = await api.get({ sandboxId: build.sandboxId });
+      if (["ready", "running", "idle"].includes(sandbox.state)) {
+        const result = await api.command({ sandboxId: build.sandboxId, commandRequest: {
+          command: "tail -c 600000 /home/user/build.log 2>/dev/null || true", timeoutSeconds: 10,
+        } });
+        if (!("stdout" in result)) throw new Error("Missing build log command result");
+        log = safeLog(result.stdout || log);
+      }
+      const status = buildStatus(log);
+      if (status === "error") throw new Error("Sandbox build failed; see build log");
+      if (status === "success") {
+        const apk = await api.artifact({ sandboxId: build.sandboxId, path: "app.apk" });
+        const apkId = await ctx.storage.store(apk);
+        await ctx.runMutation(internal.builds.update, { id, log, status, apkId, finishedAt: "success" });
+        await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
+        return null;
+      }
+      if (sandbox.setupStatus === "failed" || ["error", "archived", "archiving", "cancelled"].includes(sandbox.state)) {
+        throw new Error(sandbox.setupError || sandbox.error || `Sandbox ${sandbox.state}`);
+      }
+      if (Date.now() - build._creationTime > 3_300_000) throw new Error("Build exceeded 55-minute limit");
+      await ctx.runMutation(internal.builds.update, { id, log, status });
+    } catch (error) {
+      await ctx.runMutation(internal.builds.update, { id, log: failure(log, error), status: "error", finishedAt: "failure" });
+      await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
+    }
+    return null;
+  },
+});
+export const stop = internalAction({
+  args: { sandboxId: v.string(), attempt: v.optional(v.number()) }, returns: v.null(),
+  handler: async (ctx, { sandboxId, attempt = 0 }) => {
+    try { await boat().stop({ sandboxId }); }
+    catch (error) {
+      if (attempt >= 3) throw error;
+      await ctx.scheduler.runAfter(15_000, internal.android.stop, { sandboxId, attempt: attempt + 1 });
+    }
+    return null;
+  },
+});
