@@ -21,6 +21,6 @@ bunx convex dev --once
 bunx convex run android:runBuild
 ```
 
-It creates a Boat VM, runs a 19-line setup script, and saves timestamped build logs through scheduled polling every 15 seconds. It stores the APK before stopping the VM. See [backend/README.md](backend/README.md) for the build schema and status helper.
+It creates a Boat VM, runs a 11-line setup script, and saves timestamped build logs through scheduled polling every 15 seconds. It stores the APK before stopping the VM. See [backend/README.md](backend/README.md) for the build schema and status helper.
 
 Set `EXPO_TOKEN` and a dedicated `BOAT_API_KEY` in the Convex deployment. Credentials and APKs are excluded from Git. This is an intentionally unauthenticated sample.
