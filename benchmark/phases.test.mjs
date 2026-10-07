@@ -1,0 +1,15 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {parseBuildPhases,parseTaskTelemetry} from './phases.mjs';
+test('phase wall times partition each build and cache tasks are not counted as executed profile time',()=>{const log=`[2026-10-07T00:00:02Z] [SETUP_WORKINGDIR] Preparing
+[2026-10-07T00:00:03Z] [INSTALL_DEPENDENCIES] Running
+[2026-10-07T00:00:04Z] [EAGER_BUNDLE] Android Bundled 100ms
+[2026-10-07T00:00:05Z] [RUN_GRADLEW] > Task :lib:compileReleaseKotlin FROM-CACHE
+[2026-10-07T00:00:09Z] [RUN_GRADLEW] 2 actionable tasks: 1 executed, 1 from cache
+[2026-10-07T00:00:09Z] [GRADLE_BUILD_PROFILE] Table
+[2026-10-07T00:00:09Z] │ :app:buildCMake[x86] │ 4.0s │ 100.0% │ executed │
+[2026-10-07T00:00:09Z] │ :lib:compileReleaseJava │ 8.0s │ 0% │ from-cache │
+[2026-10-07T00:00:10Z] Build successful
+[2026-10-07T00:00:12Z] [SETUP_WORKINGDIR] Preparing
+[2026-10-07T00:00:13Z] [RUN_GRADLEW] > Task :app:compileReleaseKotlin FROM-CACHE
+[2026-10-07T00:00:14Z] Build successful`;
+const [cold,warm]=parseBuildPhases(log,[{durationSeconds:10},{durationSeconds:4}]);assert.equal(cold.phases.reduce((s,r)=>s+r.seconds,0),10);assert.equal(warm.phases.reduce((s,r)=>s+r.seconds,0),4);assert.equal(cold.profiledTaskSeconds['Java / Kotlin'],undefined);const overlap=parseBuildPhases(log,[{durationSeconds:10},{durationSeconds:7}])[1];assert.equal(overlap.profiledTaskSeconds['Native C++'],undefined);assert.equal(overlap.taskCache['Java / Kotlin'].total,1);assert.equal(cold.taskCache['Java / Kotlin'].cached,1);assert.equal(cold.profiledTaskSeconds['Native C++'],4);assert.equal(cold.cacheTasks.cached,1);assert.equal(cold.metroSeconds,.1);assert.equal(parseBuildPhases(log.replaceAll('] [','] [2026-10-07T00:00:02Z] ['),[{durationSeconds:10},{durationSeconds:4}])[0].cacheTasks.cached,1);});
+test('overlapping native tasks retain parallel work totals and merge wall intervals without inflating elapsed time',()=>{const rows=[{task:':app:buildCMake[a]',startEpochMs:1000,endEpochMs:5000,status:'executed'},{task:':lib:buildCMake[b]',startEpochMs:3000,endEpochMs:7000,status:'executed'},{task:':app:dexBuilderRelease',startEpochMs:6990,endEpochMs:7000,status:'from-cache'}];const p=parseTaskTelemetry(rows.map(r=>JSON.stringify(r)).join('\n')+'\n{partial');assert.equal(p.gradleTaskGroups['Native C++'].seconds,8);assert.equal(p.gradleTaskGroups['Native C++'].wallSeconds,6);assert.equal(p.gradleTimelineSeconds,6);assert.equal(p.gradleTaskTimeline['Native C++'].length,1);assert.equal(p.gradleTaskGroups.Dex.cached,1);assert.equal(p.gradleTaskGroups.Dex.seconds,.01);});

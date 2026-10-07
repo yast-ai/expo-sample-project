@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const [jobName,localFile,cache='warm']=process.argv.slice(2);
+if(!/^[\w.-]+$/.test(jobName||'')||!['cold','warm','warm2'].includes(cache))throw Error('Pass public job name, local APK and cache');
+const jobFile=path.join('benchmark/jobs',jobName+'.json'),job=JSON.parse(fs.readFileSync(jobFile));
+if(job.private||job.project==='disposabl')throw Error('Private artifacts cannot use public report upload');
+const backend=fs.existsSync('expo-sample-project/backend')?'expo-sample-project/backend':'backend',run=(fn,args)=>JSON.parse(execFileSync('bunx',['convex','run',fn,JSON.stringify(args)],{cwd:backend,encoding:'utf8',stdio:['ignore','pipe','pipe']}));
+const key=`benchmarks/${jobName}/${cache}.apk`,body=fs.readFileSync(localFile),sha256=createHash('sha256').update(body).digest('hex'),url=run('artifacts:benchmarkUpload',{key}).url;
+const start=Date.now(),response=await fetch(url,{method:'PUT',body,headers:{'Content-Type':'application/vnd.android.package-archive'}});
+if(!response.ok)throw Error('Public APK upload failed: '+response.status);
+const end=Date.now();await run('artifacts:completeUpload',{key});
+Object.assign(job.runs.find(r=>r.cache===cache),{artifactUrl:'https://quaint-magpie-201.convex.site/benchmark-artifact?key='+encodeURIComponent(key),artifactMiB:body.length/1048576,artifactVerified:true,artifactSha256:sha256,artifactUploadSeconds:(end-start)/1000,artifactReadyAt:end,deliveryMode:'Uploaded after benchmark; excluded from end-to-end comparisons'});
+fs.writeFileSync(jobFile,JSON.stringify(job,null,2));console.log('Public preview APK uploaded and metadata verified');

@@ -6,6 +6,21 @@ import { benchmarkKey } from "./artifacts";
 
 const http = httpRouter();
 
+// Only the three public report assets are served here. Source archives stay private.
+http.route({
+  pathPrefix: "/build-lab/",
+  method: "GET",
+  handler: httpAction(async (ctx, request) => {
+    const file = new URL(request.url).pathname.slice("/build-lab/".length) || "index.html";
+    const types: Record<string, string> = { "index.html": "text/html; charset=utf-8", "app.js": "text/javascript; charset=utf-8", "data.json": "application/json; charset=utf-8" };
+    if (!Object.hasOwn(types, file)) return new Response("Not found", { status: 404 });
+    const url = await ctx.runQuery(internal.artifacts.getUrl, { key: `benchmarks/report/${file}` });
+    const response = await fetch(url);
+    if (!response.ok) return new Response("Report unavailable", { status: 503 });
+    return new Response(await response.arrayBuffer(), { headers: { "Content-Type": types[file], "Cache-Control": "no-store" } });
+  }),
+});
+
 http.route({
   path: "/artifact",
   method: "GET",

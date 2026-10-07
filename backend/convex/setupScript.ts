@@ -9,7 +9,7 @@ export function setupScript(gitRepo: string, environment: "preview" | "productio
 set -Eeuo pipefail
 exec > >(TZ=UTC awk '{ print strftime("[%Y-%m-%dT%H:%M:%SZ]"), $0; fflush() }' >> /home/user/build.log) 2>&1
 trap 'code=$?; if [ "$code" -eq 0 ]; then echo SUCCESS; else echo ERROR; fi' EXIT
-export EXPO_TOKEN BUN_INSTALL_CACHE_DIR=/tmp/bun-cache GRADLE_USER_HOME=/tmp/gradle-cache JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ANDROID_HOME=/home/user/android-sdk ANDROID_SDK_ROOT=/home/user/android-sdk PATH="/home/user/.bun/bin:/home/user/android-sdk/cmdline-tools/latest/bin:/home/user/android-sdk/platform-tools:$PATH"
+export EXPO_TOKEN BUN_INSTALL_CACHE_DIR=/home/user/.bun/install/cache GRADLE_USER_HOME=/home/user/.gradle JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ANDROID_HOME=/home/user/android-sdk ANDROID_SDK_ROOT=/home/user/android-sdk PATH="/home/user/.bun/bin:/home/user/android-sdk/cmdline-tools/latest/bin:/home/user/android-sdk/platform-tools:$PATH"
 node -e 'require("fs").writeFileSync("/home/user/timing.json", JSON.stringify({setupStartedAt:Date.now()}))'
 git clone --depth 1 ${quote(gitRepo)} /tmp/app
 cd ${quote(`/tmp/app/${projectDirectory}`)}

@@ -39,7 +39,7 @@ export const start = internalAction({
         idempotencyKey: id,
         createSandboxRequest: {
           type: "large", ttlSeconds: 3600, noEnv: true, snapshots: false,
-          from: "android-build-tools",
+          from: process.env.ANDROID_BUILD_TEMPLATE || "android-build-tools",
           env: { EXPO_TOKEN: process.env.EXPO_TOKEN!, R2_UPLOAD_URL: upload.url, R2_OBJECT_KEY: upload.key }, setupScript: setupScript(gitRepo, environment, projectDirectory),
         },
       });
@@ -83,7 +83,7 @@ export const poll = internalAction({
         const completedAt = Date.now();
         await ctx.runMutation(internal.builds.update, { id, log, status, storageKey: artifact.key,
           setupStartedAt: timing.setupStartedAt, buildStartedAt: timing.buildStartedAt, buildCompletedAt: timing.buildCompletedAt,
-          uploadStartedAt: timing.uploadStartedAt, artifactReadyAt: timing.artifactReadyAt,
+          uploadStartedAt: timing.uploadStartedAt, uploadCompletedAt: timing.artifactReadyAt, artifactReadyAt: completedAt,
           completedAt, endToEndSeconds: (completedAt - build._creationTime) / 1000,
           artifactBytes: metadata.size, finishedAt: "success" });
         await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
@@ -100,6 +100,7 @@ export const poll = internalAction({
         await ctx.scheduler.runAfter(15_000, internal.android.poll, { id, retry: retry + 1 });
         return null;
       }
+      if (build.uploadKey) { try { await r2.deleteObject(ctx, build.uploadKey); } catch { /* Best effort: preserve the original build error if storage cleanup fails. */ } }
       await ctx.runMutation(internal.builds.update, { id, log: await failure(log, error), status: "error", finishedAt: "failure" });
       await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
     }
@@ -109,10 +110,6 @@ export const poll = internalAction({
 export const stop = internalAction({
   args: { sandboxId: v.string(), attempt: v.optional(v.number()) }, returns: v.null(),
   handler: async (ctx, { sandboxId, attempt = 0 }) => {
-    if (process.env.BENCHMARK_HOLD_SANDBOX === sandboxId) {
-      await ctx.scheduler.runAfter(60_000, internal.android.stop, { sandboxId, attempt });
-      return null;
-    }
     try { await boat().stop({ sandboxId }); }
     catch (error) {
       if (attempt >= 3) throw error;

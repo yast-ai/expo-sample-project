@@ -1,7 +1,21 @@
 {
-  "cli": { "version": "24.11.0", "appVersionSource": "remote" },
+  "cli": {
+    "version": "24.11.0",
+    "appVersionSource": "remote"
+  },
   "build": {
-    "preview": { "distribution": "internal", "android": { "buildType": "apk" } },
-    "production": { "android": { "buildType": "app-bundle" } }
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "bun": "1.4.2"
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "bun": "1.4.2"
+    }
   }
 }

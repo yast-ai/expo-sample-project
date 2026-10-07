@@ -13,10 +13,13 @@ describe("sandbox build logs", () => {
   });
   it("keeps the terminal marker below the Convex document limit and removes credentials", () => {
     process.env.EXPO_TOKEN = "test-only-expo-token";
-    const log = safeLog("💻".repeat(300_000) + "test-only-expo-token\n[time] SUCCESS\n");
+    process.env.R2_SECRET_ACCESS_KEY = "test-only-r2-secret";
+    const log = safeLog("💻".repeat(300_000) + "test-only-expo-token test-only-r2-secret\n[time] SUCCESS\n");
     expect(Buffer.byteLength(log)).toBeLessThan(1_000_000);
     expect(log).not.toContain("test-only-expo-token");
+    expect(log).not.toContain("test-only-r2-secret");
     expect(buildStatus(log)).toBe("success");
     delete process.env.EXPO_TOKEN;
+    delete process.env.R2_SECRET_ACCESS_KEY;
   });
 });

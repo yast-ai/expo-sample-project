@@ -3,7 +3,7 @@ import { convexTest } from "convex-test";
 import schema from "../convex/schema";
 import { api, internal } from "../convex/_generated/api";
 
-const mock = vi.hoisted(() => ({ create: vi.fn(), get: vi.fn(), command: vi.fn(), artifact: vi.fn(), stop: vi.fn(), r2Presign: vi.fn(), r2Sync: vi.fn(), r2Metadata: vi.fn(), r2GetUrl: vi.fn() }));
+const mock = vi.hoisted(() => ({ create: vi.fn(), get: vi.fn(), command: vi.fn(), artifact: vi.fn(), stop: vi.fn(), r2Presign: vi.fn(), r2Sync: vi.fn(), r2Metadata: vi.fn(), r2GetUrl: vi.fn(), r2Delete: vi.fn() }));
 vi.mock("@boatdev/sdk", () => ({
   Configuration: class {}, BoatApi: class {
     create = mock.create; get = mock.get; command = mock.command; artifact = mock.artifact; stop = mock.stop;
@@ -13,7 +13,7 @@ vi.mock("@convex-dev/r2", () => ({
   R2: class {
     client = {};
     config = { bucket: "test-bucket" };
-    generateUploadUrl = mock.r2Upload;
+    deleteObject = mock.r2Delete;
     syncMetadata = mock.r2Sync;
     getMetadata = mock.r2Metadata;
     getUrl = mock.r2GetUrl;
@@ -67,7 +67,8 @@ it("polls after 15 seconds, syncs the direct R2 upload, and stops the sandbox", 
   expect(build?.apkUrl).toBe(`https://r2.test/${key}`);
   expect(mock.get).toHaveBeenCalledTimes(2);
   expect(build?.endToEndSeconds).toBeCloseTo((build!.completedAt! - build!._creationTime) / 1000, 3);
-  expect(build?.artifactReadyAt).toBeLessThan(build!.completedAt!);
+  expect(build?.uploadCompletedAt).toBeLessThan(build!.artifactReadyAt!);
+  expect(build?.artifactReadyAt).toBe(build!.completedAt!);
   expect(build?.artifactBytes).toBe(10);
   expect(mock.r2Sync).toHaveBeenCalledWith(expect.anything(), key);
   expect(mock.artifact).not.toHaveBeenCalled();
@@ -86,6 +87,7 @@ it("records the provider's transfer error when APK compilation succeeded", async
   expect(build).toMatchObject({ status: "error", finishedAt: "failure" });
   expect(build?.log).toContain("HTTP 400");
   expect(build?.log).toContain("Upload receipt unavailable");
+  expect(mock.r2Delete).toHaveBeenCalledWith(expect.anything(), `builds/${id}/artifact.apk`);
   expect(mock.stop).toHaveBeenCalledOnce();
 });
 

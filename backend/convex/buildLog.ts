@@ -5,7 +5,7 @@ export function buildStatus(log: string) {
   return log.includes("IN_PROGRESS") ? "in progress" as const : "starting" as const;
 }
 export function safeLog(log: string) {
-  for (const name of ["EXPO_TOKEN", "BOAT_API_KEY"]) {
+  for (const name of ["EXPO_TOKEN", "BOAT_API_KEY", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY"]) {
     const secret = process.env[name];
     if (secret) log = log.replaceAll(secret, "[REDACTED]");
   }

@@ -1,0 +1,35 @@
+// Opt-in: copy into GRADLE_USER_HOME/init.d and set BUILD_TELEMETRY_FILE outside the project.
+import groovy.json.JsonOutput
+
+def output = System.getenv('BUILD_TELEMETRY_FILE')
+if (output) {
+  def target = new File(output); target.parentFile.mkdirs()
+  def starts = Collections.synchronizedMap([:])
+  def category = { task ->
+    def name = task.path.toLowerCase()
+    if (name.contains('cmake') || name.contains('externalnative') || name.contains('prefab')) 'native'
+    else if (name.contains('kotlin') || name.contains('javac')) 'jvm'
+    else if ((name.contains('bundle') && name.contains('js')) || name.contains('hermes') || name.contains('metro') || name.contains('javascript')) 'js'
+    else if (name.contains('dex') || name.contains('d8') || name.contains('r8') || name.contains('minify')) 'dex-r8'
+    else if (name.contains('resource') || name.contains('merge') || name.contains('process')) 'resource-package'
+    else if (name.contains('lint')) 'lint'
+    else 'other'
+  }
+  gradle.taskGraph.beforeTask { task ->
+    starts[task.path] = [nano: System.nanoTime(), epochMs: System.currentTimeMillis()]
+  }
+  gradle.taskGraph.afterTask { task, state ->
+    def started = starts.remove(task.path) ?: [nano: System.nanoTime(), epochMs: System.currentTimeMillis()]
+    def status = state.failure ? 'failed' : state.skipped ? (state.skipMessage == 'FROM-CACHE' ? 'from-cache' : state.upToDate ? 'up-to-date' : 'skipped') : 'executed'
+    synchronized (target) {
+      target << JsonOutput.toJson([
+        task: task.path,
+        category: category(task),
+        status: status,
+        startEpochMs: started.epochMs,
+        endEpochMs: System.currentTimeMillis(),
+        milliseconds: ((System.nanoTime() - started.nano) / 1_000_000L)
+      ]) + '\n'
+    }
+  }
+}
