@@ -1,0 +1,32 @@
+{
+  "name": "yast-native-lab",
+  "expoProject": "@yast-ai/yast-native-lab",
+  "expoProjectId": "fb75e2ab-bdd1-4e76-b2c0-acf90415fba3",
+  "sdk": "57.0.27",
+  "reactNative": "0.86.3",
+  "androidPackage": "ai.yast.nativelab",
+  "profiles": {
+    "preview": "signed APK",
+    "production": "signed AAB"
+  },
+  "nativeWorkload": [
+    "Skia C++ rendering library",
+    "React Native Reanimated and worklets",
+    "Camera preview and Android permissions",
+    "SQLite with FTS config plugin",
+    "Location and device-motion sensors",
+    "ExoPlayer-backed audio and video"
+  ],
+  "install": "BUN_INSTALL_CACHE_DIR=/tmp/bun-cache bun install --frozen-lockfile --backend=copyfile",
+  "buildCommands": {
+    "preview": "bun run build:preview:android",
+    "production": "bun run build:production:android"
+  },
+  "checked": [
+    "bun run typecheck",
+    "bun run lint",
+    "bun run test:config",
+    "expo config --type introspect",
+    "expo export --platform android"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "ready",
+  "expoProject": "@yast-ai/expo-convex-sample",
+  "expoProjectId": "38f6b489-0874-4525-9ae6-0ed5f635ecd4",
+  "androidPackage": "ai.yast.expoconvexsample",
+  "convexDeployment": "resolute-clam-356",
+  "convexUrl": "https://resolute-clam-356.convex.cloud",
+  "verified": ["typecheck", "live note mutation/query", "live counter mutation/query"],
+  "buildProfiles": ["preview-apk", "production-aab"]
+}

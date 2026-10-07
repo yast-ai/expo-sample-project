@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Expo Convex Sample",
+    "slug": "expo-convex-sample",
+    "owner": "yast-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "ai.yast.expoconvexsample",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "38f6b489-0874-4525-9ae6-0ed5f635ecd4"
+      }
+    }
+  }
+}
