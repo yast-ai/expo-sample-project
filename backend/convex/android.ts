@@ -6,6 +6,7 @@ import { internal } from "./_generated/api";
 import { buildStatus, safeLog } from "./buildLog";
 import { setupScript } from "./setupScript";
 import type { Id } from "./_generated/dataModel";
+import { buildRequest } from "./schema";
 
 function boat() {
   if (!process.env.BOAT_API_KEY || !process.env.EXPO_TOKEN) throw new Error("Set BOAT_API_KEY and EXPO_TOKEN first");
@@ -19,15 +20,16 @@ async function failure(log: string, error: unknown) {
 }
 
 export const runBuild = action({
-  args: {}, returns: v.id("builds"),
-  handler: async (ctx): Promise<Id<"builds">> => {
+  args: buildRequest, returns: v.id("builds"),
+  handler: async (ctx, request): Promise<Id<"builds">> => {
     boat();
-    return await ctx.runMutation(internal.builds.create, {});
+    setupScript(request.gitRepo, request.environment, request.projectDirectory);
+    return await ctx.runMutation(internal.builds.create, request);
   },
 });
 export const start = internalAction({
-  args: { id: v.id("builds") }, returns: v.null(),
-  handler: async (ctx, { id }) => {
+  args: { id: v.id("builds"), ...buildRequest }, returns: v.null(),
+  handler: async (ctx, { id, gitRepo, environment, projectDirectory }) => {
     let sandboxId: string | undefined;
     try {
       const created = await boat().create({
@@ -35,7 +37,7 @@ export const start = internalAction({
         createSandboxRequest: {
           type: "large", ttlSeconds: 3600, noEnv: true, snapshots: false,
           from: "android-build-tools",
-          env: { EXPO_TOKEN: process.env.EXPO_TOKEN! }, setupScript,
+          env: { EXPO_TOKEN: process.env.EXPO_TOKEN! }, setupScript: setupScript(gitRepo, environment, projectDirectory),
         },
       });
       sandboxId = created.sandbox.id;
@@ -67,17 +69,17 @@ export const poll = internalAction({
       if (status === "error") throw new Error("Sandbox build failed; see build log");
       if (status === "success") {
         // Boat artifact downloads are capped at 50 MiB per file.
+        const extension = build.environment === "production" ? "aab" : "apk";
         const split = await api.command({ sandboxId: build.sandboxId, commandRequest: {
-          command: "split -b 40m -d /home/user/app.apk /home/user/apk.part. && ls /home/user/apk.part.*", timeoutSeconds: 30,
+          command: `split -b 40m -d /home/user/app.${extension} /home/user/apk.part. && ls /home/user/apk.part.*`, timeoutSeconds: 30,
         } });
         if (!("stdout" in split) || split.exitCode !== 0) throw new Error("Could not split APK for transfer");
         const paths = split.stdout.trim().split("\n").filter((path) => /^\/home\/user\/apk\.part\.\d{2}$/.test(path));
         if (!paths.length) throw new Error("No APK transfer parts found");
         const parts: Blob[] = [];
         for (const path of paths) parts.push(await api.artifact({ sandboxId: build.sandboxId, path: path.slice("/home/user/".length) }));
-        const apk = new Blob(parts, { type: "application/vnd.android.package-archive" });
-        const apkId = await ctx.storage.store(apk);
-        await ctx.runMutation(internal.builds.update, { id, log, status, apkId, finishedAt: "success" });
+        const artifactId = await ctx.storage.store(new Blob(parts, { type: extension === "apk" ? "application/vnd.android.package-archive" : "application/octet-stream" }));
+        await ctx.runMutation(internal.builds.update, { id, log, status, artifactId, ...(extension === "apk" ? { apkId: artifactId } : {}), finishedAt: "success" });
         await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
         return null;
       }

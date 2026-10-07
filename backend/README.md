@@ -5,10 +5,10 @@ This backend lives in the `yast-ai` Convex project `expo-sample-builds`. It has 
 ```sh
 bun install
 bunx convex dev --once
-bunx convex run android:runBuild
+bunx convex run android:runBuild '{"gitRepo":"https://github.com/yast-ai/expo-sample-project.git","environment":"preview"}'
 ```
 
-`runBuild` takes no arguments and returns a build ID immediately. The scheduler creates a large Boat sandbox, runs the 11-line setup script, and polls `/home/user/build.log` every 15 seconds. The script clones this public repository, installs dependencies with Bun, and runs the repository's local EAS CLI with `--local --platform android --profile preview`.
+`runBuild` takes an HTTPS `gitRepo` and an `environment` EAS profile (`preview` or `production`), and returns a build ID immediately. Optional `projectDirectory` selects an app inside a monorepo. The scheduler creates a large Boat sandbox, runs the 11-line setup script, and polls `/home/user/build.log` every 15 seconds. The script clones the requested repository, installs dependencies with Bun, and runs its local EAS CLI. Preview produces an APK; production produces an AAB.
 
 The sandbox receives `EXPO_TOKEN` from the Convex deployment. `BOAT_API_KEY` remains in Convex. Neither credential is committed. Set both in your own Convex deployment before calling the action. The dedicated Boat key needs `sandbox.create`, `sandbox.read`, `sandbox.stop`, `exec`, `file.read`, and `snapshot.read` so it can start from the template.
 
@@ -20,7 +20,7 @@ bun run test
 bun run typecheck
 ```
 
-Each log line includes a UTC timestamp. The final line ends in `SUCCESS` or `ERROR`. On success, the backend saves the APK in Convex storage and returns its URL through the internal `builds:get` helper. Both terminal paths stop the sandbox, with scheduled cleanup retries. A failed build requires another `runBuild` call after the script or repository has been corrected.
+Each log line includes a UTC timestamp. The final line ends in `SUCCESS` or `ERROR`. On success, the backend saves the artifact in Convex storage and returns `artifactUrl` through the internal `builds:get` helper. Both terminal paths stop the sandbox, with scheduled cleanup retries. A failed build requires another `runBuild` call after the script or repository has been corrected.
 
 The VM has a one-hour auto-stop and the scheduler ends an unfinished build after 55 minutes. Logs retain the most recent 180,000 characters to stay within Convex's document limit. The full build log is available inside the VM while it runs.
 

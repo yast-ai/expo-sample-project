@@ -10,6 +10,7 @@ vi.mock("@boatdev/sdk", () => ({
   },
 }));
 const modules = import.meta.glob("../convex/**/*.ts");
+const request = { gitRepo: "https://github.com/yast-ai/expo-sample-project.git", environment: "preview" as const };
 beforeEach(() => {
   vi.useFakeTimers(); vi.resetAllMocks();
   vi.stubEnv("EXPO_TOKEN", "test-token"); vi.stubEnv("BOAT_API_KEY", "test-key");
@@ -22,7 +23,7 @@ it("saves an early setup failure and stops the VM without scheduling more build 
   mock.get.mockResolvedValue({ sandbox: { state: "ready", setupStatus: "failed", setupError: "sdkmanager failed" } });
   mock.command.mockResolvedValue({ stdout: "[time] sdkmanager failed\n[time] ERROR\n" });
   const t = convexTest(schema, modules);
-  const id = await t.action(api.android.runBuild, {});
+  const id = await t.action(api.android.runBuild, request);
   await t.finishAllScheduledFunctions(() => vi.runAllTimers());
   const build = await t.query(internal.builds.get, { id });
   expect(build).toMatchObject({ status: "error", finishedAt: "failure", sandboxId: "test-sandbox" });
@@ -37,7 +38,7 @@ it("polls after 15 seconds and stores the finished APK before stopping the sandb
   mock.command.mockResolvedValueOnce({ stdout: "[time] IN_PROGRESS\n[time] SUCCESS\n" }).mockResolvedValueOnce({ stdout: "/home/user/apk.part.00\n/home/user/apk.part.01\n", exitCode: 0 });
   mock.artifact.mockResolvedValueOnce(new Blob(["sample-"])).mockResolvedValueOnce(new Blob(["apk"]));
   const t = convexTest(schema, modules);
-  const id = await t.action(api.android.runBuild, {});
+  const id = await t.action(api.android.runBuild, request);
   vi.advanceTimersByTime(0);
   await t.finishInProgressScheduledFunctions();
   expect((await t.query(internal.builds.get, { id }))?.status).toBe("starting");
@@ -61,11 +62,25 @@ it("records the provider's transfer error when APK compilation succeeded", async
     response: new Response('{"code":"artifact_failed","message":"Artifact is too large"}', { status: 400 }),
   }));
   const t = convexTest(schema, modules);
-  const id = await t.action(api.android.runBuild, {});
+  const id = await t.action(api.android.runBuild, request);
   await t.finishAllScheduledFunctions(() => vi.runAllTimers());
   const build = await t.query(internal.builds.get, { id });
   expect(build).toMatchObject({ status: "error", finishedAt: "failure" });
   expect(build?.log).toContain("HTTP 400");
   expect(build?.log).toContain("Artifact is too large");
   expect(mock.stop).toHaveBeenCalledOnce();
+});
+
+it("passes the requested repository, production profile and project directory to the sandbox", async () => {
+  const t = convexTest(schema, modules);
+  await t.action(api.android.runBuild, { ...request, gitRepo: "https://github.com/yast-ai/another-app.git", environment: "production", projectDirectory: "apps/mobile" });
+  vi.advanceTimersByTime(0); await t.finishInProgressScheduledFunctions();
+  const options = mock.create.mock.calls[0][0].createSandboxRequest;
+  expect(options.env).toEqual({ EXPO_TOKEN: "test-token" });
+  expect(options.setupScript).toContain("https://github.com/yast-ai/another-app.git");
+  expect(options.setupScript).toContain("cd '/tmp/app/apps/mobile'");
+  expect(options.setupScript).toContain("--profile production");
+  expect(options.setupScript).toContain("/home/user/app.aab");
+  expect(options.setupScript.trim().split("\n").length).toBeLessThanOrEqual(20);
+  await expect(t.action(api.android.runBuild, { ...request, projectDirectory: "../outside" })).rejects.toThrow("relative project directory");
 });
