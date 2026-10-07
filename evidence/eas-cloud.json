@@ -1,0 +1,41 @@
+[
+  {
+    "project": "control",
+    "profile": "preview",
+    "cache": "cold",
+    "status": "starting",
+    "providerStatus": "IN_QUEUE",
+    "lastObservedAt": "2026-10-07T17:48:29Z",
+    "queueEstimateSeconds": 5994,
+    "resource": "unavailable (Free Tier Queue)",
+    "triggeredAt": "2026-10-07T17:12:38.634Z",
+    "artifactReadyAt": null,
+    "durationSeconds": null,
+    "queueSeconds": null,
+    "buildSeconds": null,
+    "publishSeconds": null,
+    "artifactUrl": null,
+    "artifactMiB": null,
+    "id": "517ea250-16e1-4d67-8339-6c122c4718b4"
+  },
+  {
+    "project": "control",
+    "profile": "production",
+    "cache": "cold",
+    "status": "cancelled",
+    "providerStatus": "CANCELED",
+    "lastObservedAt": "2026-10-07T17:40:54.264Z",
+    "queueEstimateSeconds": 5994,
+    "resource": "unavailable (Free Tier Queue)",
+    "triggeredAt": "2026-10-07T17:12:38.222Z",
+    "artifactReadyAt": null,
+    "cancelledAt": "2026-10-07T17:40:54.054Z",
+    "durationSeconds": 1696,
+    "queueSeconds": 1696,
+    "buildSeconds": null,
+    "publishSeconds": null,
+    "artifactUrl": null,
+    "artifactMiB": null,
+    "id": "3d0a7bae-862e-4c46-bee8-0c2af904ad6f"
+  }
+]

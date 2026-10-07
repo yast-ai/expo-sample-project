@@ -1,0 +1,26 @@
+# One 1 GB artifact, retained indefinitely
+
+All figures are marginal and exclude included plan allowances. “Indefinitely” means the storage charge repeats every month. Convex calls its unit `GB` but does not define decimal versus binary GB for file-storage billing, so the table uses one provider-billed GB-month rather than inventing a byte conversion.
+
+| Storage path | Storage/month | Storage/year | One 1 GB download | Upload/read operations | Integration |
+| --- | ---: | ---: | ---: | --- | --- |
+| Convex File Storage, Starter | $0.033 | $0.396 | $0.132 egress | No separate storage-operation price published; function calls are separate | Native Convex upload URL and `storageId` |
+| Convex File Storage, Professional | $0.030 | $0.360 | $0.120 egress | Same | Native Convex upload URL and `storageId` |
+| `@convex-dev/r2` + R2 Standard | $0.015 | $0.180 | $0 direct R2 egress | Amortized rates: PUT $0.0000045; GET $0.00000036. Monthly operations round up to whole millions | Bucket, CORS, R2 credentials, component |
+| `@hasoo/convex-s3` + S3 Standard, us-east-1 | $0.023 | $0.276 | $0.090 public-internet egress | One PUT: $0.000005; one GET: $0.0000004 | Bucket, IAM, CORS, presigned URLs |
+
+Convex File Storage is the practical default for one retained artifact. Its direct upload flow is: generate a short-lived upload URL, POST the bytes directly, then save the returned `storageId`. File size is not limited, though the POST has a two-minute timeout. Do not proxy a 1 GB artifact through an HTTP action: its request is limited to 20 MB. [Convex upload docs](https://docs.convex.dev/file-storage/upload-files) and [Convex pricing](https://www.convex.dev/pricing).
+
+The official `@convex-dev/r2` component runs inside the Convex app for authorization and metadata, but the artifact bytes live in and are billed by Cloudflare R2. It creates signed direct upload URLs and syncs metadata after upload. A server-side `r2.store(ctx, blob)` path takes a Blob/Buffer/Uint8Array, so it is unsuitable for a 1 GB payload in a Convex action: Convex documents 64 MiB Convex-runtime action memory and 512 MiB Node-action memory. Use direct signed upload from the VM/client; for a 1 GB object use multipart-capable S3 tooling for retries and resumability. [R2 component](https://github.com/get-convex/r2), [Convex limits](https://docs.convex.dev/production/state/limits), and [R2 upload guidance](https://developers.cloudflare.com/r2/objects/upload-objects/).
+
+R2 Standard bills $0.015 per GB-month, $4.50 per million Class A operations, and $0.36 per million Class B operations; direct R2 egress is free. R2 pricing is separate from Convex component usage. [Cloudflare R2 pricing](https://developers.cloudflare.com/r2/pricing/).
+
+`@hasoo/convex-s3` is an actual community Convex component. For S3 Standard in `us-east-1`, one AWS-billed GB-month is $0.023 ($0.276/year); one PUT is $0.000005 and one GET is $0.0000004. A direct public-internet 1 GB download uses the $0.09/GB first-10-TB tier. These figures deliberately exclude AWS's shared 100 GB/month data-transfer allowance and any CDN, transfer-acceleration, or cross-region cost. The component issues presigned direct upload/download URLs and can expose stable public URLs. [AWS S3 pricing](https://aws.amazon.com/s3/pricing/) and [component directory entry](https://www.convex.dev/components/hasoo/convex-s3).
+
+There is no Cloudflare “D2” object-store product or Convex D2 component in the official component directory. The likely intended product is Cloudflare D1, a SQLite database. Cloudflare identifies R2 as its object store and D1 as its serverless SQL database, so neither D1 nor a presumed D2 is appropriate for a 1 GB APK/AAB object. [Cloudflare storage guide](https://developers.cloudflare.com/use-cases/web-apps/store-data/).
+
+## 100 daily installations of one 1 GB APK
+
+Usage is 100 GB/day: 3,000 GB in a 30-day month or 36,500 GB in 365 days. Convex Starter egress is $13.20/day, $396/month, $4,818/year; Professional is $12/day, $360/month, $4,380/year. Storage for the one APK remains $0.033/$0.030 per month. R2 Standard direct egress is $0; Cloudflare rounds monthly Class A/B usage up to million-operation billing units. With no allowances, 3,000 GETs/month therefore cost $0.36/month, and the upload month adds at least one $4.50 Class A billing unit; storage is $0.015/month. S3 Standard direct egress at its first-10-TB/month tier is $9/day, $270/month, $3,285/year plus operations and $0.023/month storage. No included allowances are applied. At this download volume, R2 through the official Convex component is the cheapest of these options. [Convex pricing](https://www.convex.dev/pricing), [R2 pricing](https://developers.cloudflare.com/r2/pricing/), [S3 pricing](https://aws.amazon.com/s3/pricing/).
+
+R2 billing rounding matters when allowances are excluded: at 100 daily downloads, steady storage + Class B requests is approximately $0.375/month; the first upload month is $4.875 with one Class A unit. First-year total is about $9.00 (12 months storage/read charges plus one upload-month Class A unit), with $0 egress. Additional HEAD/metadata/retries could change operation counts, though the example remains below one million in each class.

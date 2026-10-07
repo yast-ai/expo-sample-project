@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "target": "medium_phone_api_37_1 (Android API 37.1, arm64-v8a)",
+  "artifact": "verification/benchmarks/convex-app-preview-baseline-1791393441329/cold.apk",
+  "package": "ai.yast.expoconvexsample",
+  "verifiedAt": "2026-10-08T00:25:41+07:00",
+  "evidence": {
+    "noAuthLiveQuery": "Initial Notes screen loaded the previously saved Convex note.",
+    "mutationAndReactivity": "Submitting On-device reactive note appeared immediately in the Notes list; counter changed from 1 to 2 after Increment.",
+    "persistence": "After close/reopen, the app loaded On-device reactive note again from the cloud deployment.",
+    "screenshots": [
+      "verification/convex-note-added.png",
+      "verification/convex-counter-before.png",
+      "verification/convex-counter-after.png",
+      "verification/convex-notes-after-relaunch.png"
+    ]
+  }
+}

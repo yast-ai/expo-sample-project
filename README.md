@@ -1,26 +1,42 @@
-# Expo SDK 57 sample project
+# Expo SDK 57 Android build lab
 
-An empty Expo TypeScript application linked to `@yast-ai/expo-sample-project`.
+[Live benchmark report](https://expo-boat-build-lab.vercel.app) · [Public source](https://github.com/yast-ai/expo-sample-project)
+
+Four independent Expo/EAS projects share this repository:
+
+| Directory | App | Preview | Production |
+| --- | --- | --- | --- |
+| `.` | One screen, Hello | signed release APK | AAB |
+| `variants/js-heavy` | 100 imported JavaScript screens | APK | AAB |
+| `variants/native-heavy` | Skia, Reanimated, camera, SQLite and native APIs | APK | AAB |
+| `variants/convex-app` | Public notes, counter and cloud persistence | APK | AAB |
 
 ```sh
-bun install
+bun install --frozen-lockfile
 bun start
 bun run build:preview:android
 ```
 
-The preview profile creates a signed Android release APK with local EAS Build. `expo` and `eas-cli` are repository dependencies. Expo authentication uses `EXPO_TOKEN` or your existing EAS CLI login. Native JDK/Android SDK/NDK tooling is required for local builds.
+All apps pin SDK 57 and include local Expo/EAS CLI dependencies. Local builds require JDK 17 and Android tooling; Boat's reusable `android-build-tools` snapshot supplies them. Credentials are environment variables, excluded from Git.
 
-## Boat build through Convex
+## Convex build action
 
-The `backend/` directory contains the separate `yast-ai` Convex cloud project `expo-sample-builds`. Its only public function, `android:runBuild`, takes no arguments and requires no auth.
+The separate yast-ai cloud project `expo-sample-builds` exposes one unauthenticated action. Supply the repository and EAS profile; `projectDirectory` is optional.
 
 ```sh
 cd backend
-bun install
-bunx convex dev --once
-bunx convex run android:runBuild
+bun install --frozen-lockfile
+bunx convex run android:runBuild '{"gitRepo":"https://github.com/yast-ai/expo-sample-project.git","environment":"preview"}'
 ```
 
-It creates a Boat VM, runs a 11-line setup script, and saves timestamped build logs through scheduled polling every 15 seconds. It stores the APK before stopping the VM. See [backend/README.md](backend/README.md) for the build schema and status helper.
+It returns a build ID immediately. Scheduled functions provision an 8-vCPU Boat sandbox, clone/install/build, upload directly to bucket-scoped Cloudflare R2 through the official Convex component, poll every 15 seconds, and stop the sandbox on either terminal outcome. The per-build setup script is 18 lines. `finishedAt` contains `success` or `failure`; `completedAt` is a timestamp. Timing fields measure request-to-downloadable-artifact, setup, native build and upload. [Backend details](backend/README.md).
 
-Set `EXPO_TOKEN` and a dedicated `BOAT_API_KEY` in the Convex deployment. Credentials and APKs are excluded from Git. This is an intentionally unauthenticated sample.
+The sample accepts HTTPS repositories in the yast-ai organization. Set `EXPO_TOKEN` and a dedicated `BOAT_API_KEY` on the Convex deployment. This is an intentionally public sample action.
+
+## Measurements
+
+The report separates EAS build duration from trigger-to-artifact wall time. One-second VM samples measure CPU normalized across all 8 vCPUs, RAM used (total minus available), swap, disk growth and OOM counters. Warm runs reuse Bun/npm/Gradle caches in the same VM, while EAS generates a fresh native working directory. They are cache-warm builds, not a reused incremental native workspace.
+
+End-to-end instrumentation was added during the benchmark; earlier runs show a dash where it was not recorded. New measurements include dispatch/provisioning/setup, EAS execution, polling and artifact upload. EAS cloud timings include its queue. APK behavior was checked on an Android API 37.1 arm64 emulator, including Convex mutations, live queries and persistence after relaunch.
+
+The HTML report source is in `report/`; `benchmark/` contains the VM build/sampler and orchestration tools. [Storage comparison](research/pricing/one-gb-artifact-storage.md) uses usage-based pricing for one provider-billed GB and excludes included allowances.

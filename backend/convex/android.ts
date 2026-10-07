@@ -7,6 +7,7 @@ import { buildStatus, safeLog } from "./buildLog";
 import { setupScript } from "./setupScript";
 import type { Id } from "./_generated/dataModel";
 import { buildRequest } from "./schema";
+import { r2 } from "./artifacts";
 
 function boat() {
   if (!process.env.BOAT_API_KEY || !process.env.EXPO_TOKEN) throw new Error("Set BOAT_API_KEY and EXPO_TOKEN first");
@@ -32,16 +33,18 @@ export const start = internalAction({
   handler: async (ctx, { id, gitRepo, environment, projectDirectory }) => {
     let sandboxId: string | undefined;
     try {
+      const extension = environment === "production" ? "aab" : "apk";
+      const upload = await ctx.runMutation(internal.artifacts.createUpload, { buildId: id, extension });
       const created = await boat().create({
         idempotencyKey: id,
         createSandboxRequest: {
           type: "large", ttlSeconds: 3600, noEnv: true, snapshots: false,
           from: "android-build-tools",
-          env: { EXPO_TOKEN: process.env.EXPO_TOKEN! }, setupScript: setupScript(gitRepo, environment, projectDirectory),
+          env: { EXPO_TOKEN: process.env.EXPO_TOKEN!, R2_UPLOAD_URL: upload.url, R2_OBJECT_KEY: upload.key }, setupScript: setupScript(gitRepo, environment, projectDirectory),
         },
       });
       sandboxId = created.sandbox.id;
-      await ctx.runMutation(internal.builds.update, { id, sandboxId, log: "", status: "starting" });
+      await ctx.runMutation(internal.builds.update, { id, sandboxId, uploadKey: upload.key, log: "", status: "starting" });
     } catch (error) {
       if (sandboxId) await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId });
       await ctx.runMutation(internal.builds.update, { id, log: await failure("", error), status: "error", finishedAt: "failure" });
@@ -68,18 +71,21 @@ export const poll = internalAction({
       const status = buildStatus(log);
       if (status === "error") throw new Error("Sandbox build failed; see build log");
       if (status === "success") {
-        // Boat artifact downloads are capped at 50 MiB per file.
-        const extension = build.environment === "production" ? "aab" : "apk";
-        const split = await api.command({ sandboxId: build.sandboxId, commandRequest: {
-          command: `split -b 40m -d /home/user/app.${extension} /home/user/apk.part. && ls /home/user/apk.part.*`, timeoutSeconds: 30,
+        const result = await api.command({ sandboxId: build.sandboxId, commandRequest: {
+          command: `node -e 'const f=require("fs");console.log(JSON.stringify({artifact:JSON.parse(f.readFileSync("/home/user/artifact.json")),timing:JSON.parse(f.readFileSync("/home/user/timing.json"))}))'`, timeoutSeconds: 10,
         } });
-        if (!("stdout" in split) || split.exitCode !== 0) throw new Error("Could not split APK for transfer");
-        const paths = split.stdout.trim().split("\n").filter((path) => /^\/home\/user\/apk\.part\.\d{2}$/.test(path));
-        if (!paths.length) throw new Error("No APK transfer parts found");
-        const parts: Blob[] = [];
-        for (const path of paths) parts.push(await api.artifact({ sandboxId: build.sandboxId, path: path.slice("/home/user/".length) }));
-        const artifactId = await ctx.storage.store(new Blob(parts, { type: extension === "apk" ? "application/vnd.android.package-archive" : "application/octet-stream" }));
-        await ctx.runMutation(internal.builds.update, { id, log, status, artifactId, ...(extension === "apk" ? { apkId: artifactId } : {}), finishedAt: "success" });
+        if (!("stdout" in result) || result.exitCode !== 0) throw new Error("Missing artifact upload receipt");
+        const { artifact, timing } = JSON.parse(result.stdout);
+        if (artifact.key !== build.uploadKey) throw new Error("Uploaded artifact key does not match this build");
+        await r2.syncMetadata(ctx, artifact.key);
+        const metadata = await r2.getMetadata(ctx, artifact.key);
+        if (!metadata || !metadata.size) throw new Error("Uploaded R2 artifact is missing or empty");
+        const completedAt = Date.now();
+        await ctx.runMutation(internal.builds.update, { id, log, status, storageKey: artifact.key,
+          setupStartedAt: timing.setupStartedAt, buildStartedAt: timing.buildStartedAt, buildCompletedAt: timing.buildCompletedAt,
+          uploadStartedAt: timing.uploadStartedAt, artifactReadyAt: timing.artifactReadyAt,
+          completedAt, endToEndSeconds: (completedAt - build._creationTime) / 1000,
+          artifactBytes: metadata.size, finishedAt: "success" });
         await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
         return null;
       }
@@ -103,6 +109,10 @@ export const poll = internalAction({
 export const stop = internalAction({
   args: { sandboxId: v.string(), attempt: v.optional(v.number()) }, returns: v.null(),
   handler: async (ctx, { sandboxId, attempt = 0 }) => {
+    if (process.env.BENCHMARK_HOLD_SANDBOX === sandboxId) {
+      await ctx.scheduler.runAfter(60_000, internal.android.stop, { sandboxId, attempt });
+      return null;
+    }
     try { await boat().stop({ sandboxId }); }
     catch (error) {
       if (attempt >= 3) throw error;

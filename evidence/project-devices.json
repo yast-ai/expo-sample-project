@@ -1,0 +1,46 @@
+{
+  "target": "medium_phone_api_37_1",
+  "platform": "Android emulator API 37.1 arm64-v8a",
+  "verifiedAt": "2026-10-08T00:25:41+07:00",
+  "results": [
+    {
+      "artifact": "verification/benchmarks/control-preview-baseline/cold.apk",
+      "package": "ai.yast.exposampleproject",
+      "success": true,
+      "visible": "Hello",
+      "screenshot": "verification/control-hello.png"
+    },
+    {
+      "artifact": "verification/benchmarks/js-heavy-preview-baseline/cold.apk",
+      "package": "ai.yast.exposampleproject.jsheavy",
+      "success": true,
+      "visible": "Screen 100 of 100",
+      "screenshots": [
+        "verification/js-heavy-screen-001.png",
+        "verification/js-heavy-screen-100.png"
+      ]
+    },
+    {
+      "artifact": "verification/benchmarks/native-heavy-preview-baseline-1791392846503/cold.apk",
+      "package": "ai.yast.nativelab",
+      "success": true,
+      "visible": "Native Lab; SQLite write increased Stored samples from 0 to 1",
+      "screenshots": [
+        "verification/native-heavy-home.png",
+        "verification/native-heavy-sqlite.png"
+      ]
+    },
+    {
+      "artifact": "verification/benchmarks/convex-app-preview-baseline-1791393441329/cold.apk",
+      "package": "ai.yast.expoconvexsample",
+      "success": true,
+      "visible": "No-auth note and counter mutations rendered live and persisted after restart",
+      "screenshots": [
+        "verification/convex-note-added.png",
+        "verification/convex-counter-before.png",
+        "verification/convex-counter-after.png",
+        "verification/convex-notes-after-relaunch.png"
+      ]
+    }
+  ]
+}

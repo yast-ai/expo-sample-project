@@ -19,7 +19,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "build:preview:android": "eas build --platform android --profile preview --local --non-interactive --output dist/expo-sample-project-preview.apk"
+    "build:preview:android": "node node_modules/eas-cli/bin/run build --platform android --profile preview --local --non-interactive --output dist/expo-sample-project-preview.apk",
+    "build:production:android": "node node_modules/eas-cli/bin/run build --platform android --profile production --local --non-interactive --output dist/expo-sample-project.aab"
   },
   "private": false,
   "trustedDependencies": [

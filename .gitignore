@@ -39,3 +39,11 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Secrets, local artifacts and benchmark runtime
+.env*
+.vercel/
+*.apk
+*.aab
+benchmark/jobs/
+verification/

@@ -4,6 +4,7 @@
     "strict": true
   },
   "exclude": [
-    "backend"
+    "backend",
+    "variants"
   ]
 }

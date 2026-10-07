@@ -1,7 +1,8 @@
 import { v } from "convex/values";
 import { internalMutation, internalQuery } from "./_generated/server";
 import { internal } from "./_generated/api";
-import { status, outcome, buildRequest, environment } from "./schema";
+import { r2 } from "./artifacts";
+import { status, outcome, buildRequest, environment, timingFields } from "./schema";
 
 export const create = internalMutation({
   args: buildRequest, returns: v.id("builds"),
@@ -14,8 +15,8 @@ export const create = internalMutation({
 export const get = internalQuery({
   args: { id: v.id("builds") },
   returns: v.union(v.null(), v.object({
-    _id: v.id("builds"), _creationTime: v.number(), log: v.string(), status,
-    finishedAt: v.optional(outcome), sandboxId: v.optional(v.string()),
+    ...timingFields, _id: v.id("builds"), _creationTime: v.number(), log: v.string(), status,
+    finishedAt: v.optional(outcome), sandboxId: v.optional(v.string()), uploadKey: v.optional(v.string()), storageKey: v.optional(v.string()),
     apkId: v.optional(v.id("_storage")), apkUrl: v.union(v.string(), v.null()),
     artifactId: v.optional(v.id("_storage")), artifactUrl: v.union(v.string(), v.null()),
     gitRepo: v.optional(v.string()), environment: v.optional(environment),
@@ -23,11 +24,15 @@ export const get = internalQuery({
   })),
   handler: async (ctx, { id }) => {
     const build = await ctx.db.get(id);
-    return build && { ...build, apkUrl: build.apkId ? await ctx.storage.getUrl(build.apkId) : null, artifactUrl: (build.artifactId || build.apkId) ? await ctx.storage.getUrl((build.artifactId || build.apkId)!) : null };
+    if (!build) return null;
+    const r2Url = build.storageKey ? await r2.getUrl(build.storageKey) : null;
+    const legacyId = build.artifactId || build.apkId;
+    const legacyUrl = legacyId ? await ctx.storage.getUrl(legacyId) : null;
+    return { ...build, apkUrl: r2Url ?? legacyUrl, artifactUrl: r2Url ?? legacyUrl };
   },
 });
 export const update = internalMutation({
-  args: { id: v.id("builds"), log: v.string(), status, sandboxId: v.optional(v.string()), apkId: v.optional(v.id("_storage")), artifactId: v.optional(v.id("_storage")), finishedAt: v.optional(outcome) },
+  args: { ...timingFields, id: v.id("builds"), log: v.string(), status, sandboxId: v.optional(v.string()), uploadKey: v.optional(v.string()), storageKey: v.optional(v.string()), apkId: v.optional(v.id("_storage")), artifactId: v.optional(v.id("_storage")), finishedAt: v.optional(outcome) },
   returns: v.null(),
   handler: async (ctx, { id, ...patch }) => {
     const build = await ctx.db.get(id);

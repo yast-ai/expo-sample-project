@@ -12,6 +12,7 @@ import type * as android from "../android.js";
 import type * as artifacts from "../artifacts.js";
 import type * as buildLog from "../buildLog.js";
 import type * as builds from "../builds.js";
+import type * as http from "../http.js";
 import type * as setupScript from "../setupScript.js";
 
 import type {
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   artifacts: typeof artifacts;
   buildLog: typeof buildLog;
   builds: typeof builds;
+  http: typeof http;
   setupScript: typeof setupScript;
 }>;
 
@@ -54,4 +56,6 @@ export declare const internal: FilterApi<
   FunctionReference<any, "internal">
 >;
 
-export declare const components: {};
+export declare const components: {
+  r2: import("@convex-dev/r2/_generated/component.js").ComponentApi<"r2">;
+};

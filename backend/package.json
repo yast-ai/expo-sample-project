@@ -12,7 +12,10 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1030.0",
+    "@aws-sdk/s3-request-presigner": "^3.1030.0",
     "@boatdev/sdk": "^1.7.0",
+    "@convex-dev/r2": "0.10.2",
     "convex": "^1.46.0"
   },
   "scripts": {

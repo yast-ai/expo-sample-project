@@ -1,0 +1,83 @@
+{
+  "scope": "Marginal pricing for one artifact held continuously for one month or one year. Included allowances are excluded. Transfers and operations are separate from storage.",
+  "unit": "1 billed GB-month. Convex publishes GB but does not define decimal versus binary GB for file-storage billing, so this is the provider's own billed unit rather than a bytes-to-GB conversion.",
+  "options": [
+    {
+      "name": "Convex File Storage",
+      "provider": "Convex",
+      "storage": {
+        "starterMonthlyUsd": 0.033,
+        "starterAnnualUsd": 0.396,
+        "professionalMonthlyUsd": 0.03,
+        "professionalAnnualUsd": 0.36
+      },
+      "transfer": {
+        "starterDownloadEgressUsdPerGB": 0.132,
+        "professionalDownloadEgressUsdPerGB": 0.12,
+        "uploadEgressPrice": "not separately published"
+      },
+      "operations": "No separate file-operation rate is published; direct upload flow uses Convex function calls, which are billed separately by plan.",
+      "implementation": "Native generated upload URL, direct POST, persist storageId, then getUrl. Lowest integration work.",
+      "oneGiBNote": "Direct upload URLs accept arbitrarily large files, but each POST has a 2-minute timeout. Do not route 1 GB through an HTTP action (20 MB request limit) or hold it in a Convex action Blob."
+    },
+    {
+      "name": "@convex-dev/r2 component plus Cloudflare R2 Standard",
+      "provider": "Cloudflare R2 billed separately; component runs in Convex",
+      "storage": {
+        "monthlyUsd": 0.015,
+        "annualUsd": 0.18
+      },
+      "transfer": {
+        "directInternetEgressUsdPerGB": 0,
+        "dataRetrievalUsdPerGB": 0
+      },
+      "operations": {
+        "classAUsdPerMillion": 4.5,
+        "classBUsdPerMillion": 0.36,
+        "singlePutApproxUsd": 4.5e-06,
+        "singleGetApproxUsd": 3.6e-07,
+        "rounding": "Monthly usage rounds up to whole million-request units; rates per individual operation above are amortized unit rates, not a standalone invoice."
+      },
+      "implementation": "Configure a bucket, CORS, and R2 credentials in Convex. Component generates signed direct upload URLs and syncs metadata; it does not move object bytes into Convex storage.",
+      "oneGiBNote": "Cloudflare recommends multipart for large/resumable uploads. A single S3 PUT supports up to 5 GiB, but multipart improves retry behavior; multipart has at least three Class A operations."
+    },
+    {
+      "name": "@hasoo/convex-s3 component plus AWS S3",
+      "provider": "AWS S3 Standard, us-east-1, billed separately; community component runs in Convex",
+      "storage": {
+        "monthlyUsd": 0.023,
+        "annualUsd": 0.276,
+        "unit": "1 AWS-billed GB-month (2^30 bytes)"
+      },
+      "transfer": {
+        "internetDownloadUsdPerGB": 0.09,
+        "basis": "first 10 TB/month tier; excludes AWS's shared 100 GB/month allowance"
+      },
+      "operations": {
+        "putCopyPostListUsdPer1000": 0.005,
+        "getUsdPer1000": 0.0004,
+        "singlePutApproxUsd": 5e-06,
+        "singleGetApproxUsd": 4e-07
+      },
+      "implementation": "Community component provides presigned direct upload/download URLs and optional stable public URLs. Requires an S3 bucket, IAM access, CORS, and optionally a CDN domain.",
+      "oneGiBNote": "The figures are the S3 Standard us-east-1 usage rates with no allowance. Use multipart-capable S3 tooling for resilient large uploads."
+    }
+  ],
+  "d2": "No Cloudflare D2 storage product or Convex D2 component was found. The likely name is Cloudflare D1, a serverless SQLite database; it is not object storage for 1 GB APK/AAB blobs.",
+  "recommendation": "For a single retained 1 GB artifact with modest downloads, Convex File Storage is simplest and costs $0.033/month marginal on Starter. Choose R2 when direct-download egress, expiring signed URLs, or resilient multipart uploads matter; its storage is $0.015/month plus operations.",
+  "hundredDailyInstalls": {
+    "apkGB": 1,
+    "downloadsPerDay": 100,
+    "starterEgressDailyUsd": 13.2,
+    "starterEgress30DayUsd": 396,
+    "starterEgress365DayUsd": 4818,
+    "professionalEgressDailyUsd": 12,
+    "professionalEgress30DayUsd": 360,
+    "professionalEgress365DayUsd": 4380,
+    "r2EgressUsd": 0,
+    "r2SteadyMonthlyStorageAndReadsUsd": 0.375,
+    "r2FirstUploadMonthUsd": 4.875,
+    "r2FirstYearUsd": 9.0,
+    "basis": "No allowances; R2 Class A/B monthly usage rounds up to million-operation units. One upload month, one GET per install."
+  }
+}
