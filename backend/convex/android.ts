@@ -48,8 +48,8 @@ export const start = internalAction({
   },
 });
 export const poll = internalAction({
-  args: { id: v.id("builds") }, returns: v.null(),
-  handler: async (ctx, { id }) => {
+  args: { id: v.id("builds"), retry: v.optional(v.number()) }, returns: v.null(),
+  handler: async (ctx, { id, retry = 0 }) => {
     const build = await ctx.runQuery(internal.builds.get, { id });
     if (!build || build.finishedAt || !build.sandboxId) return null;
     const api = boat();
@@ -87,6 +87,11 @@ export const poll = internalAction({
       if (Date.now() - build._creationTime > 3_300_000) throw new Error("Build exceeded 55-minute limit");
       await ctx.runMutation(internal.builds.update, { id, log, status });
     } catch (error) {
+      const response = (error as { response?: Response })?.response;
+      if (response && response.status >= 500 && retry < 3) {
+        await ctx.scheduler.runAfter(15_000, internal.android.poll, { id, retry: retry + 1 });
+        return null;
+      }
       await ctx.runMutation(internal.builds.update, { id, log: await failure(log, error), status: "error", finishedAt: "failure" });
       await ctx.scheduler.runAfter(0, internal.android.stop, { sandboxId: build.sandboxId });
     }

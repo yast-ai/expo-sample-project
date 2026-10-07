@@ -31,3 +31,5 @@ The VM has a one-hour auto-stop and the scheduler ends an unfinished build after
 The backend creates each VM with `from: "android-build-tools"`. Its 11-line per-build script only exports tool paths, clones the repository, installs dependencies, and runs EAS. Other projects can use the same template with their own setup script.
 
 Boat caps artifact downloads at 50 MiB. The backend downloads the APK in 40 MiB pieces and assembles it into a single APK before storing it in Convex.
+
+Restored Boat home directories use a lazy filesystem. The setup checks out the repo under `/tmp`, sets `BUN_INSTALL_CACHE_DIR=/tmp/bun-cache`, and uses Bun’s `--backend=copyfile` to avoid incomplete hardlinked packages. EAS runs through `node node_modules/eas-cli/bin/run`. The sample trusts only `esbuild` dependency lifecycle scripts; EAS CLI’s optional DTrace native module is unnecessary here.

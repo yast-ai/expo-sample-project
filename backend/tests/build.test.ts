@@ -32,7 +32,8 @@ it("saves an early setup failure and stops the VM without scheduling more build 
 });
 
 it("polls after 15 seconds and stores the finished APK before stopping the sandbox", async () => {
-  mock.get.mockResolvedValue({ sandbox: { state: "ready", setupStatus: "done" } });
+  mock.get.mockRejectedValueOnce(Object.assign(new Error("Gateway warming up"), { response: new Response("retry", { status: 502 }) }))
+    .mockResolvedValue({ sandbox: { state: "ready", setupStatus: "done" } });
   mock.command.mockResolvedValueOnce({ stdout: "[time] IN_PROGRESS\n[time] SUCCESS\n" }).mockResolvedValueOnce({ stdout: "/home/user/apk.part.00\n/home/user/apk.part.01\n", exitCode: 0 });
   mock.artifact.mockResolvedValueOnce(new Blob(["sample-"])).mockResolvedValueOnce(new Blob(["apk"]));
   const t = convexTest(schema, modules);
@@ -49,6 +50,7 @@ it("polls after 15 seconds and stores the finished APK before stopping the sandb
   expect(build?.apkUrl).toBeTruthy();
   const stored = await t.run(async (ctx) => (await ctx.storage.get(build!.apkId!))!.text());
   expect(stored).toBe("sample-apk");
+  expect(mock.get).toHaveBeenCalledTimes(2);
   expect(mock.artifact.mock.invocationCallOrder[0]).toBeLessThan(mock.stop.mock.invocationCallOrder[0]!);
 });
 
