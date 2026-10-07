@@ -45,6 +45,11 @@ if (fs.existsSync(appJson)) {
 const easPath = path.join(projectRoot, 'eas.json');
 const eas = fs.existsSync(easPath) ? JSON.parse(fs.readFileSync(easPath, 'utf8')) : {};
 eas.cli = { ...eas.cli, appVersionSource: 'remote' };
-eas.build = { ...eas.build, preview: { ...eas.build?.preview, distribution: 'internal', channel: 'preview', android: { ...eas.build?.preview?.android, buildType: 'apk' } } };
+const forgePreviewEnv = spec.id === 'expo-forge-mobile' ? {
+  EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY: 'pk_test_YmVuY2htYXJrLmludmFsaWQk',
+  EXPO_PUBLIC_SUPABASE_URL: 'https://benchmark.invalid',
+  EXPO_PUBLIC_SUPABASE_KEY: 'benchmark-placeholder-key',
+} : {};
+eas.build = { ...eas.build, preview: { ...eas.build?.preview, distribution: 'internal', channel: 'preview', env: { ...eas.build?.preview?.env, ...forgePreviewEnv }, android: { ...eas.build?.preview?.android, buildType: 'apk' } } };
 fs.writeFileSync(easPath, `${JSON.stringify(eas, null, 2)}\n`);
 console.log(JSON.stringify({ workload: spec.id, identity, profile: eas.build.preview }, null, 2));

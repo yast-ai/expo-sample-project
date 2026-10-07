@@ -5,6 +5,11 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 ANDROID_HOME=/home/user/andr
 export PATH="/home/user/.bun/bin:$ANDROID_HOME/cmdline-tools/22.0/bin:$ANDROID_HOME/platform-tools:$PATH" COREPACK_HOME=/tmp/template-corepack-preflight COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 exec > >(TZ=UTC awk '{ print strftime("[%Y-%m-%dT%H:%M:%SZ]"), $0; fflush() }' >> /home/user/template-upgrade.log) 2>&1
 trap 'rc=$?; if [ "$rc" -eq 0 ]; then echo SUCCESS; else echo ERROR; fi' EXIT
+if ! /home/user/.bun/bin/bun --version | grep -Fx 1.4.2 >/dev/null; then
+  curl -fsSL https://bun.sh/install | bash -s -- bun-v1.4.2
+fi
+sudo ln -sf /home/user/.bun/bin/bun /usr/local/bin/bun
+bun --version | grep -Fx 1.4.2
 # Java CLI 22.0 is pinned; SDK37 is installed independently from verified archives.
 if [ "$(cat "$ANDROID_HOME/cmdline-tools/22.0/.benchmark-version" 2>/dev/null || true)" != 15859902 ]; then
   cli_stage=$(mktemp -d /tmp/android-cli.XXXXXX)
