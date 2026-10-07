@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Expo Sample JS Heavy",
+    "slug": "expo-sample-project-js-heavy",
+    "owner": "yast-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "ai.yast.exposampleproject.jsheavy",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "42f1aa04-9f3d-4e18-b218-d8e3474270f4"
+      }
+    }
+  }
+}

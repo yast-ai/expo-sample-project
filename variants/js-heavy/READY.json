@@ -1,0 +1,12 @@
+{
+  "variant": "js-heavy",
+  "expoProjectId": "42f1aa04-9f3d-4e18-b218-d8e3474270f4",
+  "expoOwner": "yast-ai",
+  "androidPackage": "ai.yast.exposampleproject.jsheavy",
+  "sdkVersion": "57.0.0",
+  "screens": 100,
+  "profiles": {
+    "preview": "apk",
+    "production": "app-bundle"
+  }
+}
