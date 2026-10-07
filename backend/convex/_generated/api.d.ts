@@ -9,6 +9,7 @@
  */
 
 import type * as android from "../android.js";
+import type * as artifacts from "../artifacts.js";
 import type * as buildLog from "../buildLog.js";
 import type * as builds from "../builds.js";
 import type * as setupScript from "../setupScript.js";
@@ -21,6 +22,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   android: typeof android;
+  artifacts: typeof artifacts;
   buildLog: typeof buildLog;
   builds: typeof builds;
   setupScript: typeof setupScript;

@@ -15,5 +15,6 @@ export default defineSchema({
     artifactId: v.optional(v.id("_storage")),
     gitRepo: v.optional(v.string()),
     environment: v.optional(environment),
+    projectDirectory: v.optional(v.string()),
   }),
 });

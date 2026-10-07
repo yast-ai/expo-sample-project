@@ -6,7 +6,7 @@ import { status, outcome, buildRequest, environment } from "./schema";
 export const create = internalMutation({
   args: buildRequest, returns: v.id("builds"),
   handler: async (ctx, request) => {
-    const id = await ctx.db.insert("builds", { log: "", status: "starting", gitRepo: request.gitRepo, environment: request.environment });
+    const id = await ctx.db.insert("builds", { log: "", status: "starting", gitRepo: request.gitRepo, environment: request.environment, ...(request.projectDirectory ? { projectDirectory: request.projectDirectory } : {}) });
     await ctx.scheduler.runAfter(0, internal.android.start, { id, ...request });
     return id;
   },
@@ -19,6 +19,7 @@ export const get = internalQuery({
     apkId: v.optional(v.id("_storage")), apkUrl: v.union(v.string(), v.null()),
     artifactId: v.optional(v.id("_storage")), artifactUrl: v.union(v.string(), v.null()),
     gitRepo: v.optional(v.string()), environment: v.optional(environment),
+    projectDirectory: v.optional(v.string()),
   })),
   handler: async (ctx, { id }) => {
     const build = await ctx.db.get(id);

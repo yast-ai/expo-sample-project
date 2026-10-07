@@ -83,4 +83,5 @@ it("passes the requested repository, production profile and project directory to
   expect(options.setupScript).toContain("/home/user/app.aab");
   expect(options.setupScript.trim().split("\n").length).toBeLessThanOrEqual(20);
   await expect(t.action(api.android.runBuild, { ...request, projectDirectory: "../outside" })).rejects.toThrow("relative project directory");
+  await expect(t.action(api.android.runBuild, { ...request, gitRepo: "https://example.com/untrusted.git" })).rejects.toThrow("yast-ai GitHub organization");
 });

@@ -1,6 +1,7 @@
 export function setupScript(gitRepo: string, environment: "preview" | "production", projectDirectory = ".") {
   const url = new URL(gitRepo);
   if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash) throw new Error("Use an HTTPS Git repository URL without credentials");
+  if (url.hostname !== "github.com" || !/^\/yast-ai\/[A-Za-z0-9_.-]+\/?$/.test(url.pathname)) throw new Error("This sample builds repositories in the yast-ai GitHub organization");
   if (!/^[\w./-]+$/.test(projectDirectory) || projectDirectory.startsWith("/") || projectDirectory.split("/").includes("..")) throw new Error("Use a relative project directory");
   const quote = (s: string) => "'" + s.replaceAll("'", "'\"'\"'") + "'";
   const extension = environment === "production" ? "aab" : "apk";

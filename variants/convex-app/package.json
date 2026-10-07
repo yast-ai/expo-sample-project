@@ -6,8 +6,8 @@
   "scripts": {
     "start": "expo start",
     "typecheck": "tsc --noEmit",
-    "build:preview:android": "npx -y eas-cli@24.11.0 build --platform android --profile preview --local --non-interactive --output dist/expo-convex-sample-preview.apk",
-    "build:production:android": "npx -y eas-cli@24.11.0 build --platform android --profile production --local --non-interactive --output dist/expo-convex-sample.aab"
+    "build:preview:android": "node node_modules/eas-cli/bin/run build --platform android --profile preview --local --non-interactive --output dist/expo-convex-sample-preview.apk",
+    "build:production:android": "node node_modules/eas-cli/bin/run build --platform android --profile production --local --non-interactive --output dist/expo-convex-sample.aab"
   },
   "dependencies": {
     "convex": "^1.46.0",
@@ -18,7 +18,10 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eas-cli": "24.11.0",
     "typescript": "~6.0.3"
   },
-  "trustedDependencies": ["esbuild"]
+  "trustedDependencies": [
+    "esbuild"
+  ]
 }
