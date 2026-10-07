@@ -17,3 +17,16 @@ export function summarize(samples, start, end) {
     sampleCount: selected.length,
   };
 }
+
+// A metrics writer may be midway through its final NDJSON append when polled.
+export function parseSamples(text) {
+  const lines = text.split('\n');
+  return lines.flatMap((line, index) => {
+    if (!line.trim()) return [];
+    try { return [JSON.parse(line)]; }
+    catch (error) {
+      if (index === lines.length - 1 && !text.endsWith('\n')) return [];
+      throw error;
+    }
+  });
+}

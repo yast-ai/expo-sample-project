@@ -25,6 +25,8 @@ sudo npm install -g --prefix /opt/pnpm10 pnpm@10.12.3
 sudo npm install -g --prefix /opt/pnpm11 pnpm@11.23.0 yarn@1.22.22
 sudo ln -sf /opt/pnpm11/bin/pnpm /usr/local/bin/pnpm; sudo ln -sf /opt/pnpm11/bin/yarn /usr/local/bin/yarn
 sudo npm install -g --prefix /opt/corepack corepack@0.36.0
+sudo npm install -g --prefix /opt/eas22 eas-cli@22.0.0
+/opt/eas22/bin/eas --version | grep -F 'eas-cli/22.0.0 '
 sudo ln -sf /opt/corepack/bin/corepack /usr/local/bin/corepack
 export COREPACK_HOME=/tmp/template-corepack-preflight COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 for manager in pnpm@10.12.3 pnpm@11.23.0 yarn@4.9.1; do
@@ -58,7 +60,7 @@ if [ "$(cat "$ANDROID_HOME/cmdline-tools/22.0/.benchmark-version" 2>/dev/null ||
 fi
 
 set +o pipefail; yes | sdkmanager --licenses >/dev/null; set -o pipefail
-sdkmanager --install 'platform-tools' 'platforms;android-35' 'platforms;android-36' 'build-tools;35.0.0' 'build-tools;36.0.0' 'ndk;27.1.12297006' 'cmake;3.22.1' 'cmake;3.30.5'
+sdkmanager --install 'platform-tools' 'platforms;android-35' 'platforms;android-36' 'build-tools;35.0.0' 'build-tools;36.0.0' 'ndk;27.0.12077973' 'ndk;27.1.12297006' 'cmake;3.22.1' 'cmake;3.30.5'
 # Install each new SDK package into a clean directory; no incomplete-directory overlay.
 install_archive() {
   local url=$1 digest=$2 package=$3 probe=$4 archive stage

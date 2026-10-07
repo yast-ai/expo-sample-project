@@ -1,0 +1,32 @@
+{
+  "name": "android-build-tools-v5",
+  "status": "ready",
+  "sourceSandboxId": "bx_sb74zfek",
+  "snapshotId": "26045466-a652-411c-85db-e93545e81ef3",
+  "createdAt": "2026-10-07T22:30:12.324Z",
+  "sizeBytes": 7843565568,
+  "toolchain": {
+    "jdk": 17,
+    "node": "24.19.0",
+    "bun": "1.4.2",
+    "easCli": "22.0.0",
+    "androidPlatforms": [
+      35,
+      36,
+      37
+    ],
+    "ndks": [
+      "27.0.12077973",
+      "27.1.12297006"
+    ],
+    "cmake": [
+      "3.22.1",
+      "3.30.5"
+    ]
+  },
+  "cacheScope": "Public Maven modules-2 and Gradle wrapper distributions only; no project tasks or populated compiler caches",
+  "credentialsExcluded": true,
+  "applicationSourceExcluded": true,
+  "artifactsExcluded": true,
+  "restoreBuildVerified": false
+}
