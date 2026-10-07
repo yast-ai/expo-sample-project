@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T21:47:51.924Z",
+  "updatedAt": "2026-10-07T21:57:25.221Z",
   "plannedBuilds": 23,
   "activeSandboxes": 1,
   "provisioned": 78,
@@ -305,6 +305,7 @@
       "artifactMiB": 45.049015045166016,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/a767dfb8-d30e-4176-8120-d6fb664be3aa",
       "artifactId": "kg2323q0xw5rdq98ebffr1cbax8fvh22",
+      "gradleWallSeconds": 158,
       "phases": [
         {
           "name": "EAS setup",
@@ -473,6 +474,7 @@
       "artifactMiB": 45.049020767211914,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/4a5a239a-43c6-4373-a33f-edefa5c540ea",
       "artifactId": "kg22mv34snrb6fmyq7d9f1rd7n8fvbkf",
+      "gradleWallSeconds": 34,
       "phases": [
         {
           "name": "EAS setup",
@@ -648,6 +650,7 @@
       "artifactMiB": 65.44572067260742,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/891d5061-5f93-4e5f-b7c9-67317ec9a204",
       "artifactId": "kg24keww8c5ywhadz7kdj2y2n18fv26h",
+      "gradleWallSeconds": 153,
       "phases": [
         {
           "name": "EAS setup",
@@ -811,6 +814,7 @@
       "artifactMiB": 65.44572067260742,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/6e1bb468-0852-4e70-ad32-963dc786b1a9",
       "artifactId": "kg2d8bhs0wsmaagg9mnjntvhv58fve2a",
+      "gradleWallSeconds": 32,
       "phases": [
         {
           "name": "EAS setup",
@@ -991,6 +995,7 @@
       "artifactMiB": 45.049015045166016,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/ac89b101-6809-4dee-8d89-48518cba0152",
       "artifactId": "kg20mg0cnv3nmwpeatrh6dh16x8fvypb",
+      "gradleWallSeconds": 165,
       "phases": [
         {
           "name": "EAS setup",
@@ -1158,6 +1163,7 @@
       "artifactMiB": 45.04903793334961,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/21bcf6e3-5437-4f40-bfa8-bff9d95f90eb",
       "artifactId": "kg29nwkc0g6vksswzwha7edftd8fvmfy",
+      "gradleWallSeconds": 37,
       "phases": [
         {
           "name": "EAS setup",
@@ -1336,6 +1342,7 @@
       "artifactMiB": 45.07851696014404,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/3973d7e8-31be-4429-ae17-fc393f1ef025",
       "artifactId": "kg256d1ddg8rkd8dy92ceavbj18fv346",
+      "gradleWallSeconds": 159,
       "phases": [
         {
           "name": "EAS setup",
@@ -1503,6 +1510,7 @@
       "artifactMiB": 45.07850360870361,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/6d0ba4b2-3510-4726-8a71-19cf11da98dc",
       "artifactId": "kg2e5v48pcsejk5nteqf5vfx558fv60t",
+      "gradleWallSeconds": 37,
       "phases": [
         {
           "name": "EAS setup",
@@ -1678,6 +1686,7 @@
       "artifactMiB": 65.44572067260742,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/9a02732a-d9a0-40b0-b53c-13dbf5df78cb",
       "artifactId": "kg2cehxs8nn5reg0jxqcyb1cq58fvqmc",
+      "gradleWallSeconds": 152,
       "phases": [
         {
           "name": "EAS setup",
@@ -1854,6 +1863,7 @@
       "artifactMiB": 65.44572067260742,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/d73544c1-d321-465b-b808-3772e80c613c",
       "artifactId": "kg26yc3zrrt67q420ypmpztjv58ftvvq",
+      "gradleWallSeconds": 44,
       "phases": [
         {
           "name": "EAS setup",
@@ -2027,6 +2037,7 @@
       "artifactMiB": 65.55289840698242,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/573bacfe-3d06-4e89-9b60-23856968d25a",
       "artifactId": "kg25y802wh0ttc3pdf79twmrwh8fvap8",
+      "gradleWallSeconds": 144,
       "phases": [
         {
           "name": "EAS setup",
@@ -2189,6 +2200,7 @@
       "artifactMiB": 65.55289840698242,
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/e47f58df-3b6a-4293-ba86-c96afa745954",
       "artifactId": "kg25w160hmfpb24h40h0172a458fv0jq",
+      "gradleWallSeconds": 32,
       "phases": [
         {
           "name": "EAS setup",
@@ -2389,6 +2401,7 @@
       "artifactUploadSeconds": 33.086,
       "artifactId": "kg23c4jwm221y9nnr7h0tgqprn8ftq62",
       "artifactReadyAt": 1791393854217,
+      "gradleWallSeconds": 438,
       "phases": [
         {
           "name": "EAS setup",
@@ -2579,6 +2592,7 @@
       "artifactUploadSeconds": 35.577,
       "artifactId": "kg25rz5kshgy2by9mm23hakc298fv1zd",
       "artifactReadyAt": 1791393892247,
+      "gradleWallSeconds": 241,
       "phases": [
         {
           "name": "EAS setup",
@@ -2872,6 +2886,7 @@
       "artifactUploadSeconds": 21.708,
       "artifactId": "kg269xemdxevr9mpwhky9zq0cd8fvkp9",
       "artifactReadyAt": 1791393754950,
+      "gradleWallSeconds": 370,
       "phases": [
         {
           "name": "EAS setup",
@@ -3076,6 +3091,7 @@
       "artifactUploadSeconds": 4.991,
       "artifactId": "kg24wmbz7nnqv1ncmatya0zw158fv9n9",
       "artifactReadyAt": 1791393763485,
+      "gradleWallSeconds": 223,
       "phases": [
         {
           "name": "EAS setup",
@@ -3275,6 +3291,7 @@
       "artifactUploadSeconds": 44.289,
       "artifactId": "kg24dh2ytpahkwjqw9k2yxxz5d8fvy80",
       "artifactReadyAt": 1791393810271,
+      "gradleWallSeconds": 436,
       "phases": [
         {
           "name": "EAS setup",
@@ -3464,6 +3481,7 @@
       "artifactUploadSeconds": 4.95,
       "artifactId": "kg220ay8h606xhc3rcw9dk97nd8fvvrc",
       "artifactReadyAt": 1791393817645,
+      "gradleWallSeconds": 241,
       "phases": [
         {
           "name": "EAS setup",
@@ -3648,6 +3666,7 @@
       "localArtifactReadyAt": 1791393667464,
       "endToEndSeconds": 219.667,
       "pollingAndPublishSeconds": 10.763,
+      "gradleWallSeconds": 141,
       "phases": [
         {
           "name": "EAS setup",
@@ -3825,6 +3844,7 @@
       "localArtifactReadyAt": 1791393711478,
       "endToEndSeconds": 60.124,
       "pollingAndPublishSeconds": 10.106000000000002,
+      "gradleWallSeconds": 36,
       "phases": [
         {
           "name": "EAS setup",
@@ -4012,6 +4032,7 @@
       "localArtifactReadyAt": 1791393659965,
       "endToEndSeconds": 209.877,
       "pollingAndPublishSeconds": 16.637,
+      "gradleWallSeconds": 153,
       "phases": [
         {
           "name": "EAS setup",
@@ -4189,6 +4210,7 @@
       "pollingAndPublishSeconds": 1.6270000000000002,
       "storageKey": "benchmarks/retained/convex-preview.apk",
       "migratedToR2": true,
+      "gradleWallSeconds": 31,
       "phases": [
         {
           "name": "EAS setup",
@@ -4334,6 +4356,7 @@
       "artifactUrl": "https://quaint-magpie-201.convex.cloud/api/storage/33a5d505-4603-4661-9bae-caefa7fbb00c",
       "artifactMiB": 127.782546043396,
       "sampleCoverage": "External sampler; final scheduler interval may be absent",
+      "gradleWallSeconds": 392,
       "phases": [
         {
           "name": "EAS setup",
@@ -4905,6 +4928,7 @@
       "localArtifactReadyAt": 1791396418617,
       "endToEndSeconds": 211.424,
       "pollingAndPublishSeconds": 11.68,
+      "gradleWallSeconds": 154,
       "phases": [
         {
           "name": "EAS setup",
@@ -5084,6 +5108,7 @@
       "localArtifactReadyAt": 1791396468019,
       "endToEndSeconds": 63.424,
       "pollingAndPublishSeconds": 10.156,
+      "gradleWallSeconds": 36,
       "phases": [
         {
           "name": "EAS setup",
@@ -5275,6 +5300,7 @@
       "localArtifactReadyAt": 1791396420932,
       "endToEndSeconds": 210.808,
       "pollingAndPublishSeconds": 4.191000000000001,
+      "gradleWallSeconds": 163,
       "phases": [
         {
           "name": "EAS setup",
@@ -5455,6 +5481,7 @@
       "localArtifactReadyAt": 1791396467725,
       "endToEndSeconds": 54.217,
       "pollingAndPublishSeconds": 2.1449999999999996,
+      "gradleWallSeconds": 36,
       "phases": [
         {
           "name": "EAS setup",
@@ -6162,6 +6189,7 @@
       "artifactReadyAt": 1791399334345,
       "endToEndSeconds": 572.507,
       "pollingAndPublishSeconds": 11.122,
+      "gradleWallSeconds": 475,
       "phases": [
         {
           "name": "EAS setup",
@@ -6363,6 +6391,7 @@
       "artifactReadyAt": 1791399605746,
       "endToEndSeconds": 282.371,
       "pollingAndPublishSeconds": 11.352999999999998,
+      "gradleWallSeconds": 249,
       "phases": [
         {
           "name": "EAS setup",
@@ -6555,6 +6584,7 @@
       "artifactReadyAt": 1791399862361,
       "endToEndSeconds": 267.815,
       "pollingAndPublishSeconds": 10.22,
+      "gradleWallSeconds": 227,
       "phases": [
         {
           "name": "EAS setup",
@@ -7252,6 +7282,7 @@
       "swapPeakMiB": 1528.79296875,
       "oom": false,
       "sampleCount": 457,
+      "gradleWallSeconds": 428,
       "phases": [
         {
           "name": "EAS setup",
@@ -7429,6 +7460,7 @@
       "swapPeakMiB": 536.75390625,
       "oom": false,
       "sampleCount": 168,
+      "gradleWallSeconds": 146,
       "phases": [
         {
           "name": "EAS setup",
@@ -7829,6 +7861,7 @@
       "gradleReportedSeconds": 180.1,
       "telemetryPath": "verification/benchmarks/template-restore-hello/tasks-cold.ndjson",
       "notes": "EAS successful. Script wall clock is 122s; EAS Gradle task table reported 180.1s of overlapping task duration. This is dependency-cache warm only, not Gradle task-cache warm.",
+      "gradleWallSeconds": 111,
       "phases": [
         {
           "name": "EAS setup",
@@ -8643,6 +8676,7 @@
       "artifactUploadSeconds": 8.25,
       "artifactReadyAt": 1791402614528,
       "deliveryMode": "Uploaded after benchmark; excluded from end-to-end comparisons",
+      "gradleWallSeconds": 54,
       "phases": [
         {
           "name": "EAS setup",
@@ -9994,6 +10028,7 @@
       "swapPeakMiB": 1.01171875,
       "oom": false,
       "sampleCount": 150,
+      "gradleWallSeconds": 114,
       "phases": [
         {
           "name": "EAS setup",
@@ -11345,6 +11380,7 @@
       "swapPeakMiB": 1.01171875,
       "oom": false,
       "sampleCount": 65,
+      "gradleWallSeconds": 46,
       "phases": [
         {
           "name": "EAS setup",
@@ -12450,6 +12486,7 @@
       "swapPeakMiB": 124.73828125,
       "oom": false,
       "sampleCount": 442,
+      "gradleWallSeconds": 390,
       "phases": [
         {
           "name": "EAS setup",
@@ -14774,6 +14811,7 @@
       "swapPeakMiB": 124.98828125,
       "oom": false,
       "sampleCount": 293,
+      "gradleWallSeconds": 254,
       "phases": [
         {
           "name": "EAS setup",
@@ -16996,6 +17034,7 @@
       "diskPeakGiB": 64.20896911621094,
       "oom": false,
       "taskRecords": 1971,
+      "gradleWallSeconds": 979,
       "phases": [
         {
           "name": "EAS setup",
@@ -21029,6 +21068,7 @@
       "swapPeakMiB": 122.7265625,
       "diskPeakGiB": 65.43161010742188,
       "oom": false,
+      "gradleWallSeconds": 702,
       "phases": [
         {
           "name": "EAS setup",
@@ -26138,6 +26178,7 @@
       "swapPeakMiB": 157.6640625,
       "oom": false,
       "sampleCount": 617,
+      "gradleWallSeconds": 575,
       "phases": [
         {
           "name": "EAS setup",
@@ -29208,6 +29249,7 @@
       "swapPeakMiB": 157.4140625,
       "oom": false,
       "sampleCount": 461,
+      "gradleWallSeconds": 443,
       "phases": [
         {
           "name": "EAS setup",
@@ -33208,6 +33250,7 @@
       "swapPeakMiB": 1.01171875,
       "oom": false,
       "sampleCount": 146,
+      "gradleWallSeconds": 123,
       "phases": [
         {
           "name": "EAS setup",
@@ -34103,6 +34146,7 @@
       "swapPeakMiB": 1.01171875,
       "oom": false,
       "sampleCount": 65,
+      "gradleWallSeconds": 51,
       "phases": [
         {
           "name": "EAS setup",
@@ -35238,7 +35282,7 @@
       "fix": "Activate pnpm 10.12.3 before frozen install; never inspect or reuse .env."
     }
   ],
-  "reportVersion": "cc7ba8bb0b5c",
+  "reportVersion": "bfce3b93a907",
   "projectIssues": {
     "private-disposabl": {
       "reason": "Setup failed",
@@ -35286,5 +35330,30 @@
       "reason": "Setup failed",
       "next": "Retry prepared"
     }
+  },
+  "historicalReference": {
+    "project": "disposabl",
+    "sourceSha": "3f9f1b032919bf2cd653efa30ae50016f9d9487b",
+    "measuredAt": "2026-10-02",
+    "metric": "Gradle wall time",
+    "architectures": [
+      "arm64-v8a"
+    ],
+    "machine": "8 CPU / 16 GB",
+    "workers": 4,
+    "gradleHeapMiB": 6144,
+    "metaspaceMiB": 2048,
+    "kotlinStrategy": "in-process",
+    "metroWorkers": 4,
+    "nodeHeapMiB": 2048,
+    "compilerCache": true,
+    "fixedEasWorkingPath": true,
+    "coldSeconds": 670.86,
+    "warmSeconds": 87.29,
+    "warmCompilerDirectHits": 302,
+    "warmCompilerMisses": 0,
+    "endToEndSeconds": null,
+    "evidence": "agent-sandbox-backend/docs/android-build-benchmark.md and scripts/android-benchmark-large.sh",
+    "comparison": "Different architecture set and configuration; no controlled speed ratio against current four-ABI runs"
   }
 }

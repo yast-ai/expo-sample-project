@@ -1,0 +1,23 @@
+{
+  "project": "disposabl",
+  "sourceSha": "3f9f1b032919bf2cd653efa30ae50016f9d9487b",
+  "measuredAt": "2026-10-02",
+  "metric": "Gradle wall time",
+  "architectures": ["arm64-v8a"],
+  "machine": "8 CPU / 16 GB",
+  "workers": 4,
+  "gradleHeapMiB": 6144,
+  "metaspaceMiB": 2048,
+  "kotlinStrategy": "in-process",
+  "metroWorkers": 4,
+  "nodeHeapMiB": 2048,
+  "compilerCache": true,
+  "fixedEasWorkingPath": true,
+  "coldSeconds": 670.86,
+  "warmSeconds": 87.29,
+  "warmCompilerDirectHits": 302,
+  "warmCompilerMisses": 0,
+  "endToEndSeconds": null,
+  "evidence": "agent-sandbox-backend/docs/android-build-benchmark.md and scripts/android-benchmark-large.sh",
+  "comparison": "Different architecture set and configuration; no controlled speed ratio against current four-ABI runs"
+}
