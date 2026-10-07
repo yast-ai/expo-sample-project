@@ -1,0 +1,20 @@
+// Experiment only. Never include populated staging in a generic template.
+def stagingRoot = System.getenv('BENCHMARK_NATIVE_CACHE')
+def disableR8 = System.getenv('BENCHMARK_R8') == 'off'
+if (stagingRoot || disableR8) {
+    gradle.beforeProject { project ->
+        if (project.path == ':app') {
+            project.pluginManager.withPlugin('com.android.application') {
+                project.extensions.getByName('androidComponents').finalizeDsl { android ->
+                    if (stagingRoot) {
+                        android.externalNativeBuild.cmake.buildStagingDirectory = new File(stagingRoot, 'app')
+                    }
+                    if (disableR8) {
+                        android.buildTypes.getByName('release').minifyEnabled = false
+                        android.buildTypes.getByName('release').shrinkResources = false
+                    }
+                }
+            }
+        }
+    }
+}

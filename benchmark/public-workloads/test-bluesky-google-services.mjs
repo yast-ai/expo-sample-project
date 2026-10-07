@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const root=path.dirname(fileURLToPath(import.meta.url));
+const temp=fs.mkdtempSync(path.join(os.tmpdir(),'bluesky-google-services-'));
+try {
+  fs.writeFileSync(path.join(temp,'app.config.js'),"module.exports={plugins:['upstream-native-plugin'],android:{googleServicesFile:'./google-services.json'}};\n");
+  fs.writeFileSync(path.join(temp,'google-services.json.example'),JSON.stringify({project_info:{project_id:'public-example'},client:[{client_info:{android_client_info:{package_name:'upstream.package'}}}]}));
+  fs.writeFileSync(path.join(temp,'.gitignore'),'node_modules/\ngoogle-services.json\n');
+  const production={android:{buildType:'app-bundle'}};
+  fs.writeFileSync(path.join(temp,'eas.json'),JSON.stringify({build:{production,preview:{env:{EXPO_PUBLIC_ENV:'production'}}}}));
+  execFileSync(process.execPath,[path.join(root,'apply-eas-preview-overlay.mjs'),temp,path.join(root,'projects.json'),'bluesky-social-app']);
+  const google=JSON.parse(fs.readFileSync(path.join(temp,'google-services.json')));
+  assert.equal(google.project_info.project_id,'public-example');
+  assert.equal(google.client[0].client_info.android_client_info.package_name,'ai.yast.benchmark.blueskysocial');
+  const ignore=fs.readFileSync(path.join(temp,'.easignore'),'utf8');
+  assert.ok(ignore.startsWith('node_modules/\ngoogle-services.json\n'));
+  assert.ok(ignore.endsWith('!google-services.json\n'));
+  const config=execFileSync(process.execPath,['-e',`console.log(JSON.stringify(require(${JSON.stringify(path.join(temp,'app.config.js'))})({})))`],{encoding:'utf8'});
+  assert.deepEqual(JSON.parse(config).plugins,['upstream-native-plugin']);
+  assert.equal(JSON.parse(config).android.googleServicesFile,'./google-services.json');
+  const {build}=JSON.parse(fs.readFileSync(path.join(temp,'eas.json')));
+  assert.deepEqual(build.production,production);
+  assert.equal(build.preview.env.EXPO_PUBLIC_ENV,'production');
+  assert.equal(build.preview.android.buildType,'apk');
+  console.log('Bluesky public Firebase example is included; upstream plugins and production profile preserved');
+} finally {fs.rmSync(temp,{recursive:true,force:true});}

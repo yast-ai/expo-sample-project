@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T21:33:37.548Z",
+  "updatedAt": "2026-10-07T21:47:51.924Z",
   "plannedBuilds": 23,
   "activeSandboxes": 1,
   "provisioned": 78,
@@ -35238,7 +35238,7 @@
       "fix": "Activate pnpm 10.12.3 before frozen install; never inspect or reuse .env."
     }
   ],
-  "reportVersion": "f43c1a2c15b6",
+  "reportVersion": "cc7ba8bb0b5c",
   "projectIssues": {
     "private-disposabl": {
       "reason": "Setup failed",
@@ -35257,8 +35257,9 @@
       "next": "Retry prepared"
     },
     "bluesky-social-app": {
-      "reason": "Package links",
-      "next": "Fresh store + copy"
+      "reason": "Prebuild checked",
+      "next": "APK retry ready",
+      "ready": true
     },
     "expo-forge-mobile": {
       "reason": "Bun lifecycle",
@@ -35273,8 +35274,9 @@
       "next": "Retry prepared"
     },
     "obytes-template": {
-      "reason": "Package links",
-      "next": "Fresh store + copy"
+      "reason": "Prebuild checked",
+      "next": "APK retry ready",
+      "ready": true
     },
     "disposabl": {
       "reason": "Setup failed",

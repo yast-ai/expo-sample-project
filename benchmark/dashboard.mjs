@@ -29,6 +29,10 @@ function update(){
     else issue={reason:'Setup failed',next:'Retry prepared'};
     d.projectIssues[j.project]=issue;
   }
+  const blueskyPrebuild=path.join(root,'verification/public-installer-linux/bluesky-prebuild-results.json');
+  if(fs.existsSync(blueskyPrebuild)&&JSON.parse(fs.readFileSync(blueskyPrebuild,'utf8')).some(e=>e.status==='0'&&/Finished prebuild/.test(e.log)))d.projectIssues['bluesky-social-app']={reason:'Prebuild checked',next:'APK retry ready',ready:true};
+  const obytesPrebuild=path.join(root,'verification/obytes-prebuild-linux/results.json');
+  if(fs.existsSync(obytesPrebuild)){const proof=JSON.parse(fs.readFileSync(obytesPrebuild,'utf8'));if(proof.status==='success')d.projectIssues['obytes-template']={reason:'Prebuild checked',next:'APK retry ready',ready:true};}
   d.failures.push(...jobs.flatMap(j=>(j.runs||[]).filter(r=>r.failure).map(r=>({id:j.id,project:r.workload||r.project,error:r.failure,fix:r.fix}))));
   for(const [id,p] of Object.entries(d.projects)){const app=path.join(root,id==='control'?'expo-sample-project':`workspace/variants/${id}`);if(fs.existsSync(path.join(app,'READY.json'))||id==='control'){p.status='ready';p.source=true;}for(const profile of ['preview'])p[profile]=jobs.some(j=>j.project===id&&j.profile===profile&&(j.status==='success'||j.runs?.some(r=>r.status==='success')));}
   const convexEvidence=path.join(root,'verification/convex-device.json');if(fs.existsSync(convexEvidence)){const e=JSON.parse(fs.readFileSync(convexEvidence,'utf8'));d.projects['convex-app'].device=e.success;d.insights[2]={label:'Convex APK',value:e.success?'Verified':'Pending',badge:e.success?'Persistence + live query':'Device check',status:e.success?'success':''};}

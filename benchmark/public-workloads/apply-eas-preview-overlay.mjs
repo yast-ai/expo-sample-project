@@ -42,6 +42,15 @@ if (fs.existsSync(appJson)) {
   fs.renameSync(appTs, path.join(projectRoot, 'app.upstream.config.ts'));
   fs.writeFileSync(appTs, `import 'tsx/cjs';\nconst upstream = require('./app.upstream.config.ts').default;\nconst identity = ${JSON.stringify(identity)};\nexport default (ctx: any) => { const expo: any = upstream(ctx); return { ...expo, name: identity.name, slug: identity.slug, owner: identity.owner, scheme: identity.scheme, android: { ...expo.android, package: identity.androidPackage }, ios: { ...expo.ios, bundleIdentifier: identity.androidPackage }, updates: { ...expo.updates, url: \`https://u.expo.dev/\${identity.projectId}\` }, extra: { ...expo.extra, eas: { ...expo.extra?.eas, projectId: identity.projectId } } }; };\n`);
 } else throw new Error(`No Expo config found in ${projectRoot}`);
+if (spec.id === 'bluesky-social-app') {
+  const example = JSON.parse(fs.readFileSync(path.join(projectRoot, 'google-services.json.example'), 'utf8'));
+  for (const client of example.client ?? []) client.client_info.android_client_info.package_name = identity.androidPackage;
+  fs.writeFileSync(path.join(projectRoot, 'google-services.json'), JSON.stringify(example, null, 2) + '\n');
+  const ignorePath = path.join(projectRoot, '.easignore');
+  const gitIgnore = path.join(projectRoot, '.gitignore');
+  const ignore = fs.existsSync(ignorePath) ? fs.readFileSync(ignorePath, 'utf8') : fs.existsSync(gitIgnore) ? fs.readFileSync(gitIgnore, 'utf8') : '';
+  fs.writeFileSync(ignorePath, ignore + '\n!google-services.json\n');
+}
 const easPath = path.join(projectRoot, 'eas.json');
 const eas = fs.existsSync(easPath) ? JSON.parse(fs.readFileSync(easPath, 'utf8')) : {};
 eas.cli = { ...eas.cli, appVersionSource: 'remote' };
