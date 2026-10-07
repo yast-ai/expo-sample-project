@@ -20,8 +20,9 @@ esac
 MOCK
 chmod +x "$temp/bin/"* "$temp/sdk/cmdline-tools/22.0/bin/sdkmanager"
 for api in 35 36 37; do
- mkdir -p "$temp/sdk/platforms/android-$api" "$temp/sdk/build-tools/$api.0.0"
- : > "$temp/sdk/platforms/android-$api/android.jar"
+ platform="$api"; if [ "$api" = 37 ]; then platform=37.0; fi
+ mkdir -p "$temp/sdk/platforms/android-$platform" "$temp/sdk/build-tools/$api.0.0"
+ : > "$temp/sdk/platforms/android-$platform/android.jar"
  printf '#!/usr/bin/env bash\ntest "$1" = version\n' > "$temp/sdk/build-tools/$api.0.0/aapt2"
  chmod +x "$temp/sdk/build-tools/$api.0.0/aapt2"
 done
