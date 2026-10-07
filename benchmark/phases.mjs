@@ -11,5 +11,16 @@ export function parseTaskTelemetry(text){
   const start=Math.min(...tasks.map(t=>t.startEpochMs)),end=Math.max(...tasks.map(t=>t.endEpochMs)),groups={},timeline={};
   for(const t of tasks){const c=t.category,g=groups[c]??={seconds:0,total:0,cached:0,upToDate:0};g.seconds+=(t.endEpochMs-t.startEpochMs)/1000;g.total++;if(t.status==='from-cache')g.cached++;if(t.status==='up-to-date')g.upToDate++;(timeline[c]??=[]).push([t.startEpochMs-start,t.endEpochMs-start]);}
   for(const [c,intervals] of Object.entries(timeline)){const merged=[];for(const [a,b] of intervals.sort((a,b)=>a[0]-b[0])){const last=merged.at(-1);if(last&&a<=last[1])last[1]=Math.max(last[1],b);else merged.push([a,b]);}timeline[c]=merged.map(([a,b])=>({startSeconds:a/1000,seconds:(b-a)/1000}));groups[c].wallSeconds=merged.reduce((sum,[a,b])=>sum+(b-a)/1000,0);}
-  return {gradleTaskGroups:groups,gradleTaskTimeline:timeline,gradleTimelineSeconds:(end-start)/1000,gradleTopTasks:tasks.map(t=>({name:t.task,seconds:(t.endEpochMs-t.startEpochMs)/1000,status:t.status,category:t.category})).sort((a,b)=>b.seconds-a.seconds).slice(0,8),gradleProfileComplete:true,gradleProfileSource:'Task start/end telemetry'};
+  return {gradleTaskGroups:groups,gradleTaskTimeline:timeline,gradleTimelineSeconds:(end-start)/1000,gradleTasksStartedAt:start,gradleTasksEndedAt:end,gradleTopTasks:tasks.map(t=>({name:t.task,seconds:(t.endEpochMs-t.startEpochMs)/1000,status:t.status,category:t.category})).sort((a,b)=>b.seconds-a.seconds).slice(0,8),gradleProfileComplete:true,gradleProfileSource:'Task start/end telemetry'};
+}
+
+export function deriveTaskPhases(run){
+  const start=run?.buildStartedAt,end=run?.buildCompletedAt,first=run?.gradleTasksStartedAt,last=run?.gradleTasksEndedAt;
+  if(![start,end,first,last].every(Number.isFinite)||end<start||last<first)return {};
+  const taskStart=Math.max(start,Math.min(end,first)),taskEnd=Math.max(taskStart,Math.min(end,last));
+  return {phaseSource:'tasktelemetry',phasePrecisionSeconds:1,phases:[
+    {name:'Before tasks',seconds:(taskStart-start)/1000},
+    {name:'Gradle tasks',seconds:(taskEnd-taskStart)/1000},
+    {name:'After tasks',seconds:(end-taskEnd)/1000},
+  ]};
 }

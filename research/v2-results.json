@@ -1,0 +1,4110 @@
+{
+  "version": 2,
+  "recordedAt": "2026-10-07T23:37:12.360353+00:00",
+  "sourceSha": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+  "project": "native-heavy",
+  "profile": "preview",
+  "artifact": "APK",
+  "architectures": [
+    "armeabi-v7a",
+    "arm64-v8a",
+    "x86",
+    "x86_64"
+  ],
+  "method": {
+    "coreBuilds": 20,
+    "strategies": 10,
+    "extraControlBuilds": 2,
+    "provisionedThisRound": 16,
+    "activeSandboxes": 0,
+    "machine": "8 vCPU / 16 GiB RAM",
+    "cold": "Fresh template VM; public Maven and Gradle wrapper prewarmed; no app source, native outputs or compiler cache.",
+    "warm": "Same VM and recipe after cold; EAS working directory recreated; Gradle, compiler and Metro caches retained.",
+    "endToEnd": "Trigger through provisioning/setup, EAS local build, artifact upload, polling and metadata publish until APK URL ready. Warm excludes reprovisioning.",
+    "timingLimitations": [
+      "One cold/warm pair per strategy, not statistically replicated.",
+      "S1 and S10 have identical cold settings but differ by 75.3 seconds: normal run variance is material.",
+      "Docker log buffering requires task-epoch envelope timing; these envelopes are not isolated compilation/configuration phases.",
+      "Core matrix completed about 34 minutes after request; Docker template/setup retries exceeded the 20-minute target."
+    ]
+  },
+  "winners": {
+    "cold": {
+      "strategyId": "S6",
+      "cache": "cold",
+      "durationSeconds": 418.835,
+      "endToEndSeconds": 490.57,
+      "provisionSetupSeconds": 46.545,
+      "artifactUploadSeconds": 7.767,
+      "pollingAndPublishSeconds": 17.423000000000002,
+      "cpuAverage": 74.10307702846346,
+      "cpuPeak": 100,
+      "memoryPeakGiB": 10.154560089111328,
+      "memoryMinAvailableGiB": 5.4626007080078125,
+      "diskDeltaGiB": 11.328544616699219,
+      "swapPeakMiB": 1.01171875,
+      "artifactMiB": 173.42455387115479,
+      "artifactSha256": "cd8826358cac0c1ec5e9f3c76259792008a5d13308cfc216ffd61d4ead291f9f",
+      "oom": false,
+      "workers": 6,
+      "gradleHeapMiB": 4096,
+      "phases": [
+        {
+          "name": "EAS setup",
+          "seconds": 14.774
+        },
+        {
+          "name": "Checks",
+          "seconds": 2
+        },
+        {
+          "name": "Install",
+          "seconds": 1
+        },
+        {
+          "name": "Prebuild",
+          "seconds": 1
+        },
+        {
+          "name": "Signing",
+          "seconds": 0
+        },
+        {
+          "name": "Metro",
+          "seconds": 5
+        },
+        {
+          "name": "Gradle",
+          "seconds": 394
+        },
+        {
+          "name": "Package",
+          "seconds": 1.061
+        }
+      ],
+      "gradleTaskGroups": {
+        "Java / Kotlin": {
+          "seconds": 259.624,
+          "total": 60,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 197.55100000000002
+        },
+        "Other": {
+          "seconds": 28.10000000000004,
+          "total": 347,
+          "cached": 44,
+          "upToDate": 10,
+          "wallSeconds": 25.046000000000028
+        },
+        "Resources": {
+          "seconds": 11.513999999999998,
+          "total": 102,
+          "cached": 30,
+          "upToDate": 13,
+          "wallSeconds": 9.059999999999997
+        },
+        "Package": {
+          "seconds": 10.418,
+          "total": 75,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 10.271
+        },
+        "Native C++": {
+          "seconds": 927.6189999999997,
+          "total": 64,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 274.00100000000003
+        },
+        "Lint": {
+          "seconds": 112.92000000000002,
+          "total": 88,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 92.82999999999998
+        },
+        "JS / Hermes": {
+          "seconds": 36.345,
+          "total": 1,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 36.345
+        },
+        "Dex": {
+          "seconds": 23.595,
+          "total": 3,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 23.485999999999997
+        }
+      },
+      "gradleTimelineSeconds": 376.711,
+      "gradleTopTasks": [
+        {
+          "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+          "seconds": 129.378,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+          "seconds": 89.616,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":react-native-screens:compileReleaseKotlin",
+          "seconds": 60.052,
+          "status": "executed",
+          "category": "Java / Kotlin"
+        },
+        {
+          "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+          "seconds": 57.245,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+          "seconds": 54.631,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+          "seconds": 46.903,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":expo-modules-core:compileReleaseKotlin",
+          "seconds": 44.151,
+          "status": "executed",
+          "category": "Java / Kotlin"
+        },
+        {
+          "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+          "seconds": 42.182,
+          "status": "executed",
+          "category": "Native C++"
+        }
+      ]
+    },
+    "warm": {
+      "strategyId": "S2",
+      "cache": "warm",
+      "durationSeconds": 143.021,
+      "endToEndSeconds": 153.371,
+      "provisionSetupSeconds": 0,
+      "artifactUploadSeconds": 5.548,
+      "pollingAndPublishSeconds": 4.801,
+      "cpuAverage": 66.41354401938798,
+      "cpuPeak": 100,
+      "memoryPeakGiB": 6.140830993652344,
+      "memoryMinAvailableGiB": 9.476188659667969,
+      "diskDeltaGiB": 1.1370773315429688,
+      "swapPeakMiB": 39.234375,
+      "artifactMiB": 173.40892887115479,
+      "artifactSha256": "ea71838edce1dbcf73ea865c41f6c55cbb8863cedec15686a9da84015af06ae4",
+      "oom": false,
+      "workers": 4,
+      "gradleHeapMiB": 6144,
+      "phases": [
+        {
+          "name": "EAS setup",
+          "seconds": 6.392
+        },
+        {
+          "name": "Checks",
+          "seconds": 2
+        },
+        {
+          "name": "Install",
+          "seconds": 2
+        },
+        {
+          "name": "Prebuild",
+          "seconds": 1
+        },
+        {
+          "name": "Signing",
+          "seconds": 1
+        },
+        {
+          "name": "Metro",
+          "seconds": 0
+        },
+        {
+          "name": "Gradle",
+          "seconds": 130
+        },
+        {
+          "name": "Package",
+          "seconds": 0.629
+        }
+      ],
+      "gradleTaskGroups": {
+        "Java / Kotlin": {
+          "seconds": 3.8849999999999993,
+          "total": 60,
+          "cached": 32,
+          "upToDate": 0,
+          "wallSeconds": 2.837
+        },
+        "Other": {
+          "seconds": 10.957999999999993,
+          "total": 347,
+          "cached": 106,
+          "upToDate": 10,
+          "wallSeconds": 7.5419999999999945
+        },
+        "Resources": {
+          "seconds": 2.521999999999996,
+          "total": 102,
+          "cached": 55,
+          "upToDate": 13,
+          "wallSeconds": 2.478999999999998
+        },
+        "Package": {
+          "seconds": 9.888000000000002,
+          "total": 75,
+          "cached": 1,
+          "upToDate": 0,
+          "wallSeconds": 8.943999999999999
+        },
+        "Native C++": {
+          "seconds": 326.722,
+          "total": 64,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 110.42500000000001
+        },
+        "Lint": {
+          "seconds": 4.124999999999997,
+          "total": 88,
+          "cached": 23,
+          "upToDate": 0,
+          "wallSeconds": 3.8579999999999983
+        },
+        "JS / Hermes": {
+          "seconds": 18.386,
+          "total": 1,
+          "cached": 0,
+          "upToDate": 0,
+          "wallSeconds": 18.386
+        },
+        "Dex": {
+          "seconds": 1.434,
+          "total": 3,
+          "cached": 3,
+          "upToDate": 0,
+          "wallSeconds": 1.434
+        }
+      },
+      "gradleTimelineSeconds": 124.514,
+      "gradleTopTasks": [
+        {
+          "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+          "seconds": 80.259,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+          "seconds": 79.952,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+          "seconds": 27.543,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+          "seconds": 20.798,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":app:createBundleReleaseJsAndAssets",
+          "seconds": 18.386,
+          "status": "executed",
+          "category": "JS / Hermes"
+        },
+        {
+          "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+          "seconds": 15.473,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+          "seconds": 15.293,
+          "status": "executed",
+          "category": "Native C++"
+        },
+        {
+          "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+          "seconds": 11.141,
+          "status": "executed",
+          "category": "Native C++"
+        }
+      ]
+    },
+    "combinedEndToEnd": {
+      "strategyId": "S10",
+      "seconds": 690.0319999999999
+    }
+  },
+  "strategies": [
+    {
+      "id": "S1",
+      "name": "6w \u00b7 4G \u00b7 cache",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 530.11,
+          "endToEndSeconds": 611.525,
+          "provisionSetupSeconds": 51.485,
+          "artifactUploadSeconds": 14.54,
+          "pollingAndPublishSeconds": 15.39,
+          "cpuAverage": 71.40630994164395,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.168075561523438,
+          "memoryMinAvailableGiB": 5.449085235595703,
+          "diskDeltaGiB": 10.632987976074219,
+          "swapPeakMiB": 55.578125,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "6e6b9db44477d71f8a0ee244a8ec3cd07f1ce768677f4804949bbd1c74f5deb9",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 14.835
+            },
+            {
+              "name": "Checks",
+              "seconds": 5
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 9
+            },
+            {
+              "name": "Gradle",
+              "seconds": 499
+            },
+            {
+              "name": "Package",
+              "seconds": 0.275
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 290.156,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 224.72899999999998
+            },
+            "Other": {
+              "seconds": 35.362000000000016,
+              "total": 347,
+              "cached": 43,
+              "upToDate": 10,
+              "wallSeconds": 30.914000000000016
+            },
+            "Resources": {
+              "seconds": 15.472000000000001,
+              "total": 102,
+              "cached": 29,
+              "upToDate": 13,
+              "wallSeconds": 12.677999999999997
+            },
+            "Package": {
+              "seconds": 49.239,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 32.157000000000004
+            },
+            "Native C++": {
+              "seconds": 1104.318,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 324.98900000000003
+            },
+            "Lint": {
+              "seconds": 166.45800000000006,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 87.015
+            },
+            "JS / Hermes": {
+              "seconds": 42.198,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 42.198
+            },
+            "Dex": {
+              "seconds": 31.93,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 31.93
+            }
+          },
+          "gradleTimelineSeconds": 474.416,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 152.163,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 94.06,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 75.11,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 71.131,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 65.264,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 54.38,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 52.293,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 46.938,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 181.494,
+          "endToEndSeconds": 227.064,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 33.474,
+          "pollingAndPublishSeconds": 12.096000000000004,
+          "cpuAverage": 62.97015832134841,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.693119049072266,
+          "memoryMinAvailableGiB": 8.924041748046875,
+          "diskDeltaGiB": 6.635719299316406,
+          "swapPeakMiB": 59.6015625,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "ec452e66f8017b97ddf4aefe1c25a58ac29cc06228e106ba88f9498de343ea8c",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 9.887
+            },
+            {
+              "name": "Checks",
+              "seconds": 10
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 2
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 156
+            },
+            {
+              "name": "Package",
+              "seconds": 0.607
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 6.151999999999999,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 4.926
+            },
+            "Other": {
+              "seconds": 10.960999999999988,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 8.055999999999996
+            },
+            "Resources": {
+              "seconds": 3.626999999999998,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 3.5309999999999997
+            },
+            "Package": {
+              "seconds": 11.772999999999998,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 10.177999999999999
+            },
+            "Native C++": {
+              "seconds": 403.6189999999999,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 134.692
+            },
+            "Lint": {
+              "seconds": 6.971999999999995,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 6.298999999999998
+            },
+            "JS / Hermes": {
+              "seconds": 25.145,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 25.145
+            },
+            "Dex": {
+              "seconds": 1.871,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 1.871
+            }
+          },
+          "gradleTimelineSeconds": 150.047,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 100.826,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 100.781,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 32.061,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 27.786,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 25.145,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 20.98,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 18.593,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 12.301,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "4w \u00b7 6G \u00b7 cache",
+      "workers": 4,
+      "heap": 6144,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 486.822,
+          "endToEndSeconds": 558.264,
+          "provisionSetupSeconds": 52.153,
+          "artifactUploadSeconds": 5.233,
+          "pollingAndPublishSeconds": 14.056000000000001,
+          "cpuAverage": 69.72604996795918,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 9.502494812011719,
+          "memoryMinAvailableGiB": 6.114524841308594,
+          "diskDeltaGiB": 10.843795776367188,
+          "swapPeakMiB": 32.69921875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "69e932e61fba71d64fcc19284950b4d76d809c17a1bc7a78f9b1f95b003888f2",
+          "oom": false,
+          "workers": 4,
+          "gradleHeapMiB": 6144,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 13.166
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 2
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 5
+            },
+            {
+              "name": "Gradle",
+              "seconds": 462
+            },
+            {
+              "name": "Package",
+              "seconds": 0.656
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 290.513,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 180.80499999999998
+            },
+            "Other": {
+              "seconds": 21.787999999999997,
+              "total": 347,
+              "cached": 45,
+              "upToDate": 10,
+              "wallSeconds": 19.40899999999999
+            },
+            "Resources": {
+              "seconds": 10.870999999999999,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 10.432999999999998
+            },
+            "Package": {
+              "seconds": 35.241,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 34.904
+            },
+            "Native C++": {
+              "seconds": 767.285,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 289.94300000000004
+            },
+            "Lint": {
+              "seconds": 145.639,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 96.42399999999999
+            },
+            "JS / Hermes": {
+              "seconds": 22.147,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 22.147
+            },
+            "Dex": {
+              "seconds": 26.154,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 26.055
+            }
+          },
+          "gradleTimelineSeconds": 441.457,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 120.69,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 71.813,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 52.826,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 50.749,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 38.602,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 36.848,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:lintVitalAnalyzeRelease",
+              "seconds": 36.257,
+              "status": "executed",
+              "category": "Lint"
+            },
+            {
+              "name": ":app:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 35.22,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 143.021,
+          "endToEndSeconds": 153.371,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 5.548,
+          "pollingAndPublishSeconds": 4.801,
+          "cpuAverage": 66.41354401938798,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.140830993652344,
+          "memoryMinAvailableGiB": 9.476188659667969,
+          "diskDeltaGiB": 1.1370773315429688,
+          "swapPeakMiB": 39.234375,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "ea71838edce1dbcf73ea865c41f6c55cbb8863cedec15686a9da84015af06ae4",
+          "oom": false,
+          "workers": 4,
+          "gradleHeapMiB": 6144,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 6.392
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 1
+            },
+            {
+              "name": "Metro",
+              "seconds": 0
+            },
+            {
+              "name": "Gradle",
+              "seconds": 130
+            },
+            {
+              "name": "Package",
+              "seconds": 0.629
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 3.8849999999999993,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 2.837
+            },
+            "Other": {
+              "seconds": 10.957999999999993,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 7.5419999999999945
+            },
+            "Resources": {
+              "seconds": 2.521999999999996,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 2.478999999999998
+            },
+            "Package": {
+              "seconds": 9.888000000000002,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 8.943999999999999
+            },
+            "Native C++": {
+              "seconds": 326.722,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 110.42500000000001
+            },
+            "Lint": {
+              "seconds": 4.124999999999997,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 3.8579999999999983
+            },
+            "JS / Hermes": {
+              "seconds": 18.386,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 18.386
+            },
+            "Dex": {
+              "seconds": 1.434,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 1.434
+            }
+          },
+          "gradleTimelineSeconds": 124.514,
+          "gradleTopTasks": [
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 80.259,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 79.952,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 27.543,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 20.798,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 18.386,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 15.473,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 15.293,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 11.141,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "6w \u00b7 6G \u00b7 cache",
+      "workers": 6,
+      "heap": 6144,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 464.431,
+          "endToEndSeconds": 524.861,
+          "provisionSetupSeconds": 49.069,
+          "artifactUploadSeconds": 6.095,
+          "pollingAndPublishSeconds": 5.266000000000001,
+          "cpuAverage": 74.40507175941669,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 11.02907943725586,
+          "memoryMinAvailableGiB": 4.588077545166016,
+          "diskDeltaGiB": 10.789928436279297,
+          "swapPeakMiB": 94.30078125,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "ab1e9a13e9887b3d4d4de6819395ba725ee9c68d7c799a10e8023211a88d1c04",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 6144,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 14.25
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 5
+            },
+            {
+              "name": "Gradle",
+              "seconds": 440
+            },
+            {
+              "name": "Package",
+              "seconds": 0.181
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 304.80899999999997,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 228.97199999999998
+            },
+            "Other": {
+              "seconds": 36.90200000000004,
+              "total": 347,
+              "cached": 44,
+              "upToDate": 10,
+              "wallSeconds": 35.09700000000002
+            },
+            "Resources": {
+              "seconds": 15.291999999999998,
+              "total": 102,
+              "cached": 29,
+              "upToDate": 13,
+              "wallSeconds": 11.032999999999996
+            },
+            "Package": {
+              "seconds": 11.328999999999997,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 11.209999999999997
+            },
+            "Native C++": {
+              "seconds": 1029.117,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 314.575
+            },
+            "Lint": {
+              "seconds": 141.249,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 114.98799999999996
+            },
+            "JS / Hermes": {
+              "seconds": 37.634,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 37.634
+            },
+            "Dex": {
+              "seconds": 23.635,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 23.497
+            }
+          },
+          "gradleTimelineSeconds": 419.558,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 141.204,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 77.558,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 68.049,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 63.113,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 55.002,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 48.937,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 47.164,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 47.073,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 146.672,
+          "endToEndSeconds": 180.263,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 13.617,
+          "pollingAndPublishSeconds": 19.974,
+          "cpuAverage": 65.81335538261888,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.276508331298828,
+          "memoryMinAvailableGiB": 9.340648651123047,
+          "diskDeltaGiB": 6.6327056884765625,
+          "swapPeakMiB": 94.30078125,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "f9a5ae88b79178d65e787c131f466aedc101cd51e8691628e55a6a4f3323b3f0",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 6144,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 6.508
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 2
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 133
+            },
+            {
+              "name": "Package",
+              "seconds": 0.164
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 5.7379999999999995,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 4.704999999999999
+            },
+            "Other": {
+              "seconds": 10.682999999999982,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 8.207999999999997
+            },
+            "Resources": {
+              "seconds": 2.191,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 2.005
+            },
+            "Package": {
+              "seconds": 10.840999999999998,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 9.892999999999999
+            },
+            "Native C++": {
+              "seconds": 334.0399999999999,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 113.791
+            },
+            "Lint": {
+              "seconds": 4.956999999999998,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 4.4910000000000005
+            },
+            "JS / Hermes": {
+              "seconds": 23.642,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 23.642
+            },
+            "Dex": {
+              "seconds": 0.6679999999999999,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 0.6679999999999999
+            }
+          },
+          "gradleTimelineSeconds": 127.883,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 81.98,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 81.942,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 26.363,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 23.642,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 21.002,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 16.88,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 16.421,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 10.848,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "4w \u00b7 8G \u00b7 cache",
+      "workers": 4,
+      "heap": 8192,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 492.041,
+          "endToEndSeconds": 558.222,
+          "provisionSetupSeconds": 49.815,
+          "artifactUploadSeconds": 5.392,
+          "pollingAndPublishSeconds": 10.974,
+          "cpuAverage": 65.88419178883225,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.518009185791016,
+          "memoryMinAvailableGiB": 5.099151611328125,
+          "diskDeltaGiB": 11.134349822998047,
+          "swapPeakMiB": 5.78515625,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "1149f3c951dc30ad36c8187e12fca5d6df8bcb97d10dd055741195ee4b2617fe",
+          "oom": false,
+          "workers": 4,
+          "gradleHeapMiB": 8192,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 13.505
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 5
+            },
+            {
+              "name": "Gradle",
+              "seconds": 467
+            },
+            {
+              "name": "Package",
+              "seconds": 0.536
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 289.65200000000004,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 173.535
+            },
+            "Other": {
+              "seconds": 17.082999999999995,
+              "total": 347,
+              "cached": 45,
+              "upToDate": 10,
+              "wallSeconds": 16.00699999999999
+            },
+            "Resources": {
+              "seconds": 14.367999999999995,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 12.785999999999998
+            },
+            "Package": {
+              "seconds": 55.224000000000004,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 55.054
+            },
+            "Native C++": {
+              "seconds": 707.7140000000002,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 269.476
+            },
+            "Lint": {
+              "seconds": 193.68300000000002,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 125.37300000000002
+            },
+            "JS / Hermes": {
+              "seconds": 16.225,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 16.225
+            },
+            "Dex": {
+              "seconds": 60.47500000000001,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 60.272000000000006
+            }
+          },
+          "gradleTimelineSeconds": 447.098,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 111.046,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 62.193,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 52.899,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":app:mergeExtDexRelease",
+              "seconds": 51.124,
+              "status": "executed",
+              "category": "Dex"
+            },
+            {
+              "name": ":shopify_react-native-skia:lintVitalAnalyzeRelease",
+              "seconds": 44.427,
+              "status": "executed",
+              "category": "Lint"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 40.615,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:processReleaseManifestForPackage",
+              "seconds": 38.649,
+              "status": "executed",
+              "category": "Package"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 38.249,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 144.865,
+          "endToEndSeconds": 167.611,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 6.035,
+          "pollingAndPublishSeconds": 16.71,
+          "cpuAverage": 66.96351153900495,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.040496826171875,
+          "memoryMinAvailableGiB": 9.576663970947266,
+          "diskDeltaGiB": 0,
+          "swapPeakMiB": 17.35546875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "31dd555382495a606271ad0dc088a0cae0f2fea34bdf3b6c53496e759d3255ae",
+          "oom": false,
+          "workers": 4,
+          "gradleHeapMiB": 8192,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 5.851
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 132
+            },
+            {
+              "name": "Package",
+              "seconds": 1.014
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 4.028999999999999,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 2.8069999999999986
+            },
+            "Other": {
+              "seconds": 12.027999999999999,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 8.181000000000001
+            },
+            "Resources": {
+              "seconds": 2.9619999999999997,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 2.896
+            },
+            "Package": {
+              "seconds": 11.267,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 10.302
+            },
+            "Native C++": {
+              "seconds": 332.7940000000001,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 113.347
+            },
+            "Lint": {
+              "seconds": 4.756999999999997,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 4.145999999999999
+            },
+            "JS / Hermes": {
+              "seconds": 19.85,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 19.85
+            },
+            "Dex": {
+              "seconds": 0.548,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 0.548
+            }
+          },
+          "gradleTimelineSeconds": 128.194,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 82.249,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 82.218,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 27.617,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 22.091,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 19.85,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 15.787,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 15.528,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 11.849,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "8w \u00b7 4G \u00b7 cache",
+      "workers": 8,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 464.386,
+          "endToEndSeconds": 525.291,
+          "provisionSetupSeconds": 46.397,
+          "artifactUploadSeconds": 7.591,
+          "pollingAndPublishSeconds": 6.916999999999999,
+          "cpuAverage": 75.44627771887552,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 11.302898406982422,
+          "memoryMinAvailableGiB": 4.314262390136719,
+          "diskDeltaGiB": 11.010112762451172,
+          "swapPeakMiB": 43.2578125,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "6fcc778f8e89f5ee297db4cecdf482bbf969ac4dd86c57c4382e639521e94cf2",
+          "oom": false,
+          "workers": 8,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 15.923
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 6
+            },
+            {
+              "name": "Gradle",
+              "seconds": 437
+            },
+            {
+              "name": "Package",
+              "seconds": 0.463
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 313.24100000000004,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 237.141
+            },
+            "Other": {
+              "seconds": 25.362000000000005,
+              "total": 347,
+              "cached": 45,
+              "upToDate": 10,
+              "wallSeconds": 19.61599999999999
+            },
+            "Resources": {
+              "seconds": 14.446000000000002,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 11.447
+            },
+            "Package": {
+              "seconds": 39.047000000000004,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 38.539
+            },
+            "Native C++": {
+              "seconds": 1007.703,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 329.02799999999996
+            },
+            "Lint": {
+              "seconds": 140.822,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 124.39699999999996
+            },
+            "JS / Hermes": {
+              "seconds": 36.495,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 36.495
+            },
+            "Dex": {
+              "seconds": 73.823,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 73.823
+            }
+          },
+          "gradleTimelineSeconds": 417.814,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 153.882,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 81.681,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 70.009,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:mergeExtDexRelease",
+              "seconds": 69.131,
+              "status": "executed",
+              "category": "Dex"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 63.406,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 53.768,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 50.101,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 49.122,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 149.467,
+          "endToEndSeconds": 184.967,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 14.63,
+          "pollingAndPublishSeconds": 20.869999999999997,
+          "cpuAverage": 67.42464939072536,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.157188415527344,
+          "memoryMinAvailableGiB": 9.459972381591797,
+          "diskDeltaGiB": 6.390758514404297,
+          "swapPeakMiB": 58.6015625,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "38a97882d5c688781fc49bcac41452edc6ea5bd47daa06f3f6243930afc3840d",
+          "oom": false,
+          "workers": 8,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 6.305
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 1
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 135
+            },
+            {
+              "name": "Package",
+              "seconds": 1.162
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 5.784999999999998,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 4.316999999999998
+            },
+            "Other": {
+              "seconds": 11.364999999999984,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 7.963999999999997
+            },
+            "Resources": {
+              "seconds": 2.747,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 2.5789999999999997
+            },
+            "Package": {
+              "seconds": 13.589999999999996,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 11.011999999999997
+            },
+            "Native C++": {
+              "seconds": 350.29900000000004,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 117.161
+            },
+            "Lint": {
+              "seconds": 5.890999999999998,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 4.9879999999999995
+            },
+            "JS / Hermes": {
+              "seconds": 21.063,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 21.063
+            },
+            "Dex": {
+              "seconds": 1.06,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 1.06
+            }
+          },
+          "gradleTimelineSeconds": 131.235,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 87.224,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 87.166,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 27.669,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 22.096,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 21.063,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 19.411,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 16.686,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 10.575,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S6",
+      "name": "6w \u00b7 4G \u00b7 no compiler cache",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": false,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 418.835,
+          "endToEndSeconds": 490.57,
+          "provisionSetupSeconds": 46.545,
+          "artifactUploadSeconds": 7.767,
+          "pollingAndPublishSeconds": 17.423000000000002,
+          "cpuAverage": 74.10307702846346,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.154560089111328,
+          "memoryMinAvailableGiB": 5.4626007080078125,
+          "diskDeltaGiB": 11.328544616699219,
+          "swapPeakMiB": 1.01171875,
+          "artifactMiB": 173.42455387115479,
+          "artifactSha256": "cd8826358cac0c1ec5e9f3c76259792008a5d13308cfc216ffd61d4ead291f9f",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 14.774
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 5
+            },
+            {
+              "name": "Gradle",
+              "seconds": 394
+            },
+            {
+              "name": "Package",
+              "seconds": 1.061
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 259.624,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 197.55100000000002
+            },
+            "Other": {
+              "seconds": 28.10000000000004,
+              "total": 347,
+              "cached": 44,
+              "upToDate": 10,
+              "wallSeconds": 25.046000000000028
+            },
+            "Resources": {
+              "seconds": 11.513999999999998,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 9.059999999999997
+            },
+            "Package": {
+              "seconds": 10.418,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 10.271
+            },
+            "Native C++": {
+              "seconds": 927.6189999999997,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 274.00100000000003
+            },
+            "Lint": {
+              "seconds": 112.92000000000002,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 92.82999999999998
+            },
+            "JS / Hermes": {
+              "seconds": 36.345,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 36.345
+            },
+            "Dex": {
+              "seconds": 23.595,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 23.485999999999997
+            }
+          },
+          "gradleTimelineSeconds": 376.711,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 129.378,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 89.616,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 60.052,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 57.245,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 54.631,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 46.903,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 44.151,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 42.182,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 239.707,
+          "endToEndSeconds": 264.045,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 4.856,
+          "pollingAndPublishSeconds": 19.481,
+          "cpuAverage": 78.95672605700858,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 7.654956817626953,
+          "memoryMinAvailableGiB": 7.9622039794921875,
+          "diskDeltaGiB": 2.5338706970214844,
+          "swapPeakMiB": 1.01171875,
+          "artifactMiB": 173.42455387115479,
+          "artifactSha256": "88cc8fd5c75e39188a04c417ecbf017edb8e6284645eb1933cbde37475619b90",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 5.122
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 1
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 228
+            },
+            {
+              "name": "Package",
+              "seconds": 0.585
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 3.652,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 2.984
+            },
+            "Other": {
+              "seconds": 11.140999999999988,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 8.902999999999992
+            },
+            "Resources": {
+              "seconds": 1.9580000000000002,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 1.8780000000000006
+            },
+            "Package": {
+              "seconds": 9.331999999999997,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 8.309
+            },
+            "Native C++": {
+              "seconds": 746.1820000000001,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 212.01699999999997
+            },
+            "Lint": {
+              "seconds": 3.7369999999999974,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 3.6939999999999977
+            },
+            "JS / Hermes": {
+              "seconds": 26.57,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 26.57
+            },
+            "Dex": {
+              "seconds": 0.985,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 0.985
+            }
+          },
+          "gradleTimelineSeconds": 224.523,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 105.797,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 97.807,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 48.585,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 37.775,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 34.679,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 32.969,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 31.073,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 29.191,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S7",
+      "name": "6w \u00b7 4G \u00b7 native jobs 4",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "ninjaJobs": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 458.962,
+          "endToEndSeconds": 541.827,
+          "provisionSetupSeconds": 57.665,
+          "artifactUploadSeconds": 5.439,
+          "pollingAndPublishSeconds": 19.761,
+          "cpuAverage": 65.0685838163053,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.060684204101562,
+          "memoryMinAvailableGiB": 5.556476593017578,
+          "diskDeltaGiB": 10.537605285644531,
+          "swapPeakMiB": 1.51171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "05121cd9922a9132288f6db291f6009e892c5e4175a765cd35e56e86fb79d3e4",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 13.655
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 1
+            },
+            {
+              "name": "Metro",
+              "seconds": 5
+            },
+            {
+              "name": "Gradle",
+              "seconds": 434
+            },
+            {
+              "name": "Package",
+              "seconds": 0.307
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 242.646,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 182.31199999999998
+            },
+            "Other": {
+              "seconds": 27.66600000000001,
+              "total": 347,
+              "cached": 43,
+              "upToDate": 10,
+              "wallSeconds": 25.46099999999999
+            },
+            "Resources": {
+              "seconds": 13.109999999999998,
+              "total": 102,
+              "cached": 29,
+              "upToDate": 13,
+              "wallSeconds": 11.813999999999998
+            },
+            "Package": {
+              "seconds": 32.46600000000001,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 31.661000000000005
+            },
+            "Native C++": {
+              "seconds": 786.7400000000002,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 327.5249999999999
+            },
+            "Lint": {
+              "seconds": 109.35800000000002,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 102.09100000000002
+            },
+            "JS / Hermes": {
+              "seconds": 27.472,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 27.472
+            },
+            "Dex": {
+              "seconds": 43.544000000000004,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 43.544000000000004
+            }
+          },
+          "gradleTimelineSeconds": 414.526,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 71.855,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 51.046,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":app:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 39.532,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:mergeExtDexRelease",
+              "seconds": 38.496,
+              "status": "executed",
+              "category": "Dex"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 38.281,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 38.104,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 35.826,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 34.78,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 169.08,
+          "endToEndSeconds": 196.845,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 10.609,
+          "pollingAndPublishSeconds": 17.156,
+          "cpuAverage": 57.796058790570264,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 5.646675109863281,
+          "memoryMinAvailableGiB": 9.97048568725586,
+          "diskDeltaGiB": 0.9741706848144531,
+          "swapPeakMiB": 1.51171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "68caa6d37dea01be056bff6ef9f81d624b26ff80534b478939c0091c021117c7",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 5.907
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 156
+            },
+            {
+              "name": "Package",
+              "seconds": 0.173
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 4.526,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 3.705999999999999
+            },
+            "Other": {
+              "seconds": 11.153,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 7.726999999999994
+            },
+            "Resources": {
+              "seconds": 4.011999999999996,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 3.807999999999997
+            },
+            "Package": {
+              "seconds": 11.945,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 10.674
+            },
+            "Native C++": {
+              "seconds": 394.905,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 135.67399999999998
+            },
+            "Lint": {
+              "seconds": 5.7719999999999985,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 5.422999999999998
+            },
+            "JS / Hermes": {
+              "seconds": 20.049,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 20.049
+            },
+            "Dex": {
+              "seconds": 0.6890000000000001,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 0.6890000000000001
+            }
+          },
+          "gradleTimelineSeconds": 150.559,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 100.983,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 100.942,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 27.084,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 25.743,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 25.02,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 21.882,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 20.049,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 11.659,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S8",
+      "name": "Docker \u00b7 6w \u00b7 4G",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "docker": true,
+      "template": "android-build-tools-v6-docker",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 447.214,
+          "endToEndSeconds": 536.503,
+          "provisionSetupSeconds": 60.853,
+          "artifactUploadSeconds": 14.355,
+          "pollingAndPublishSeconds": 14.081,
+          "cpuAverage": 75.20986169502007,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.063766479492188,
+          "memoryMinAvailableGiB": 5.553394317626953,
+          "diskDeltaGiB": 11.587890625,
+          "swapPeakMiB": 509.80859375,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "d5eefe551227112f0661cf19bec4417453b3f1b74b89f78b60c27cc59bb0bfc0",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "Before tasks",
+              "seconds": 39.735
+            },
+            {
+              "name": "Gradle tasks",
+              "seconds": 406.591
+            },
+            {
+              "name": "After tasks",
+              "seconds": 0.888
+            }
+          ],
+          "phaseSource": "tasktelemetry",
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 332.52600000000007,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 242.282
+            },
+            "Other": {
+              "seconds": 47.124000000000045,
+              "total": 347,
+              "cached": 45,
+              "upToDate": 10,
+              "wallSeconds": 44.25000000000004
+            },
+            "Resources": {
+              "seconds": 14.095,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 11.982999999999995
+            },
+            "Package": {
+              "seconds": 33.794,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 32.094
+            },
+            "Native C++": {
+              "seconds": 891.259,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 307.144
+            },
+            "Lint": {
+              "seconds": 129.114,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 102.74399999999999
+            },
+            "JS / Hermes": {
+              "seconds": 30.061,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 30.061
+            },
+            "Dex": {
+              "seconds": 55.185,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 55.185
+            }
+          },
+          "gradleTimelineSeconds": 406.591,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 103.944,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 61.44,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 51.92,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 51.849,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":app:mergeExtDexRelease",
+              "seconds": 48.981,
+              "status": "executed",
+              "category": "Dex"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 45.112,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 44.985,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 44.15,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 169.277,
+          "endToEndSeconds": 188.09,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 6.565,
+          "pollingAndPublishSeconds": 12.247,
+          "cpuAverage": 68.35821038452926,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.678691864013672,
+          "memoryMinAvailableGiB": 8.938468933105469,
+          "diskDeltaGiB": 6.297004699707031,
+          "swapPeakMiB": 106.30859375,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "54de8df17ee9a932bdb9a7430f896f2e428f6e221ce3b24adecd8893ed8f4f0a",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "Before tasks",
+              "seconds": 20.811
+            },
+            {
+              "name": "Gradle tasks",
+              "seconds": 148.05
+            },
+            {
+              "name": "After tasks",
+              "seconds": 0.416
+            }
+          ],
+          "phaseSource": "tasktelemetry",
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 5.880999999999999,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 4.79
+            },
+            "Other": {
+              "seconds": 12.288999999999985,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 9.127999999999993
+            },
+            "Resources": {
+              "seconds": 3.586999999999997,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 3.4439999999999973
+            },
+            "Package": {
+              "seconds": 11.399999999999995,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 10.227999999999998
+            },
+            "Native C++": {
+              "seconds": 384.8959999999999,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 132.453
+            },
+            "Lint": {
+              "seconds": 6.556999999999998,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 6.227999999999999
+            },
+            "JS / Hermes": {
+              "seconds": 28.821,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 28.821
+            },
+            "Dex": {
+              "seconds": 0.935,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 0.935
+            }
+          },
+          "gradleTimelineSeconds": 148.05,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 88.071,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 88.028,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 28.821,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 28.735,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 23.938,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 17.727,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 16.2,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-worklets:buildCMakeRelWithDebInfo[arm64-v8a][worklets]",
+              "seconds": 12.857,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S9",
+      "name": "6w \u00b7 4G \u00b7 Metro 2",
+      "workers": 6,
+      "heap": 4096,
+      "ccache": true,
+      "metroWorkers": 2,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 473.215,
+          "endToEndSeconds": 540.706,
+          "provisionSetupSeconds": 48.378,
+          "artifactUploadSeconds": 6.267,
+          "pollingAndPublishSeconds": 12.846,
+          "cpuAverage": 74.38650269159679,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 9.816596984863281,
+          "memoryMinAvailableGiB": 5.800567626953125,
+          "diskDeltaGiB": 11.553531646728516,
+          "swapPeakMiB": 1.26171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "4a4a2a3bf92cc62cd4b606e4c35cfe85cc7239a9780a3dea5f47e3001a1720cb",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 15.941
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 9
+            },
+            {
+              "name": "Gradle",
+              "seconds": 442
+            },
+            {
+              "name": "Package",
+              "seconds": 0.274
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 297.84000000000003,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 224.13899999999998
+            },
+            "Other": {
+              "seconds": 29.581000000000028,
+              "total": 347,
+              "cached": 43,
+              "upToDate": 10,
+              "wallSeconds": 27.036000000000033
+            },
+            "Resources": {
+              "seconds": 9.610999999999999,
+              "total": 102,
+              "cached": 28,
+              "upToDate": 13,
+              "wallSeconds": 8.381999999999998
+            },
+            "Package": {
+              "seconds": 29.778999999999996,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 27.473
+            },
+            "Native C++": {
+              "seconds": 1055.1299999999999,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 313.955
+            },
+            "Lint": {
+              "seconds": 122.29399999999994,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 94.97699999999998
+            },
+            "JS / Hermes": {
+              "seconds": 44.054,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 44.054
+            },
+            "Dex": {
+              "seconds": 23.407,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 23.379
+            }
+          },
+          "gradleTimelineSeconds": 420.859,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 146.536,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 105.77,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 69.475,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 59.892,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 55.716,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 50.756,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86]",
+              "seconds": 47.478,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 46.623,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 145.463,
+          "endToEndSeconds": 169.897,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 7.875,
+          "pollingAndPublishSeconds": 16.558,
+          "cpuAverage": 67.77191451893515,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 6.372867584228516,
+          "memoryMinAvailableGiB": 9.24429702758789,
+          "diskDeltaGiB": 0,
+          "swapPeakMiB": 1.26171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "4dcd65ffa33ad8b3f4f24a7add6295ad072f00685f8186f037c2ddbfc9e403b4",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 6.241
+            },
+            {
+              "name": "Checks",
+              "seconds": 3
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 1
+            },
+            {
+              "name": "Gradle",
+              "seconds": 133
+            },
+            {
+              "name": "Package",
+              "seconds": 0.222
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 4.653999999999999,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 3.7209999999999988
+            },
+            "Other": {
+              "seconds": 10.480999999999993,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 7.852999999999992
+            },
+            "Resources": {
+              "seconds": 2.9549999999999965,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 2.8569999999999967
+            },
+            "Package": {
+              "seconds": 10.087,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 8.974
+            },
+            "Native C++": {
+              "seconds": 341.0689999999999,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 114.206
+            },
+            "Lint": {
+              "seconds": 4.514999999999996,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 4.1519999999999975
+            },
+            "JS / Hermes": {
+              "seconds": 24.202,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 24.202
+            },
+            "Dex": {
+              "seconds": 1.567,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 1.567
+            }
+          },
+          "gradleTimelineSeconds": 128.274,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 83.741,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 83.704,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 30.344,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 24.202,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 21.481,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 15.772,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 14.953,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 12.01,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "name": "Cold 6w \u2192 warm 8w \u00b7 4G",
+      "workers": 6,
+      "heap": 4096,
+      "warmWorkers": 8,
+      "warmHeap": 4096,
+      "ccache": true,
+      "metroWorkers": 4,
+      "template": "android-build-tools-v5",
+      "runs": [
+        {
+          "cache": "cold",
+          "durationSeconds": 454.823,
+          "endToEndSeconds": 523.842,
+          "provisionSetupSeconds": 51.814,
+          "artifactUploadSeconds": 7.74,
+          "pollingAndPublishSeconds": 9.464999999999998,
+          "cpuAverage": 74.01990598130003,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 10.506523132324219,
+          "memoryMinAvailableGiB": 5.110637664794922,
+          "diskDeltaGiB": 10.965225219726562,
+          "swapPeakMiB": 1.01171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "60e7a2f154902e8b2928075d18ab30a3d093db4d9d94fc86a6313a2f000498cc",
+          "oom": false,
+          "workers": 6,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 15.505
+            },
+            {
+              "name": "Checks",
+              "seconds": 4
+            },
+            {
+              "name": "Install",
+              "seconds": 1
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 0
+            },
+            {
+              "name": "Metro",
+              "seconds": 7
+            },
+            {
+              "name": "Gradle",
+              "seconds": 426
+            },
+            {
+              "name": "Package",
+              "seconds": 0.318
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 347.13,
+              "total": 60,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 231.97599999999997
+            },
+            "Other": {
+              "seconds": 33.823,
+              "total": 347,
+              "cached": 44,
+              "upToDate": 10,
+              "wallSeconds": 31.40600000000002
+            },
+            "Resources": {
+              "seconds": 11.852,
+              "total": 102,
+              "cached": 30,
+              "upToDate": 13,
+              "wallSeconds": 9.635999999999997
+            },
+            "Package": {
+              "seconds": 49.608000000000004,
+              "total": 75,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 36.255
+            },
+            "Native C++": {
+              "seconds": 881.5380000000001,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 297.768
+            },
+            "Lint": {
+              "seconds": 148.555,
+              "total": 88,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 119.40200000000002
+            },
+            "JS / Hermes": {
+              "seconds": 30.629,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 30.629
+            },
+            "Dex": {
+              "seconds": 65.214,
+              "total": 3,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 65.214
+            }
+          },
+          "gradleTimelineSeconds": 402.01,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 96.212,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:compileReleaseKotlin",
+              "seconds": 68.124,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":app:mergeExtDexRelease",
+              "seconds": 60.426,
+              "status": "executed",
+              "category": "Dex"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 57.574,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 47.178,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-screens:compileReleaseKotlin",
+              "seconds": 45.319,
+              "status": "executed",
+              "category": "Java / Kotlin"
+            },
+            {
+              "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 42.997,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[x86_64]",
+              "seconds": 42.827,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        },
+        {
+          "cache": "warm",
+          "durationSeconds": 145.171,
+          "endToEndSeconds": 166.19,
+          "provisionSetupSeconds": 0,
+          "artifactUploadSeconds": 10.636,
+          "pollingAndPublishSeconds": 10.382000000000001,
+          "cpuAverage": 66.38029219003359,
+          "cpuPeak": 100,
+          "memoryPeakGiB": 5.9230804443359375,
+          "memoryMinAvailableGiB": 9.694080352783203,
+          "diskDeltaGiB": 0,
+          "swapPeakMiB": 1.26171875,
+          "artifactMiB": 173.40892887115479,
+          "artifactSha256": "b58eb433f45d69cd9dca3d3c0b84161892aadd47e336a165db7d271a8f2409c3",
+          "oom": false,
+          "workers": 8,
+          "gradleHeapMiB": 4096,
+          "phases": [
+            {
+              "name": "EAS setup",
+              "seconds": 6.443
+            },
+            {
+              "name": "Checks",
+              "seconds": 2
+            },
+            {
+              "name": "Install",
+              "seconds": 2
+            },
+            {
+              "name": "Prebuild",
+              "seconds": 1
+            },
+            {
+              "name": "Signing",
+              "seconds": 1
+            },
+            {
+              "name": "Metro",
+              "seconds": 0
+            },
+            {
+              "name": "Gradle",
+              "seconds": 132
+            },
+            {
+              "name": "Package",
+              "seconds": 0.728
+            }
+          ],
+          "gradleTaskGroups": {
+            "Java / Kotlin": {
+              "seconds": 5.596,
+              "total": 60,
+              "cached": 32,
+              "upToDate": 0,
+              "wallSeconds": 3.993999999999999
+            },
+            "Other": {
+              "seconds": 12.006999999999987,
+              "total": 347,
+              "cached": 106,
+              "upToDate": 10,
+              "wallSeconds": 7.874999999999996
+            },
+            "Resources": {
+              "seconds": 5.606999999999996,
+              "total": 102,
+              "cached": 55,
+              "upToDate": 13,
+              "wallSeconds": 3.2879999999999985
+            },
+            "Package": {
+              "seconds": 12.833999999999998,
+              "total": 75,
+              "cached": 1,
+              "upToDate": 0,
+              "wallSeconds": 11.37
+            },
+            "Native C++": {
+              "seconds": 326.82399999999996,
+              "total": 64,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 112.302
+            },
+            "Lint": {
+              "seconds": 6.465999999999997,
+              "total": 88,
+              "cached": 23,
+              "upToDate": 0,
+              "wallSeconds": 4.938999999999997
+            },
+            "JS / Hermes": {
+              "seconds": 20.901,
+              "total": 1,
+              "cached": 0,
+              "upToDate": 0,
+              "wallSeconds": 20.901
+            },
+            "Dex": {
+              "seconds": 1.052,
+              "total": 3,
+              "cached": 3,
+              "upToDate": 0,
+              "wallSeconds": 1.052
+            }
+          },
+          "gradleTimelineSeconds": 127.026,
+          "gradleTopTasks": [
+            {
+              "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 80.406,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+              "seconds": 80.356,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+              "seconds": 27.177,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":app:createBundleReleaseJsAndAssets",
+              "seconds": 20.901,
+              "status": "executed",
+              "category": "JS / Hermes"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+              "seconds": 19.621,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+              "seconds": 16.738,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+              "seconds": 15.481,
+              "status": "executed",
+              "category": "Native C++"
+            },
+            {
+              "name": ":expo-modules-core:buildCMakeRelWithDebInfo[armeabi-v7a]",
+              "seconds": 11.16,
+              "status": "executed",
+              "category": "Native C++"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "matchedRawControl": {
+    "configuration": "6 workers / 4 GiB / ccache / Metro 4",
+    "comparisonOnly": true,
+    "runs": [
+      {
+        "cache": "cold",
+        "durationSeconds": 460.79,
+        "endToEndSeconds": 525.838,
+        "provisionSetupSeconds": 46.993,
+        "artifactUploadSeconds": 5.428,
+        "pollingAndPublishSeconds": 12.626999999999999,
+        "cpuAverage": 74.65074194347645,
+        "cpuPeak": 100,
+        "memoryPeakGiB": 10.934257507324219,
+        "memoryMinAvailableGiB": 4.682903289794922,
+        "diskDeltaGiB": 11.25869369506836,
+        "swapPeakMiB": 81.98046875,
+        "artifactMiB": 173.40892887115479,
+        "artifactSha256": "37b82c5a51f959d60051f21c3125c5322c23cbc6d09605b72d9ed17d23c0d928",
+        "oom": false,
+        "workers": 6,
+        "gradleHeapMiB": 4096,
+        "phases": [
+          {
+            "name": "EAS setup",
+            "seconds": 15.623
+          },
+          {
+            "name": "Checks",
+            "seconds": 3
+          },
+          {
+            "name": "Install",
+            "seconds": 1
+          },
+          {
+            "name": "Prebuild",
+            "seconds": 2
+          },
+          {
+            "name": "Signing",
+            "seconds": 0
+          },
+          {
+            "name": "Metro",
+            "seconds": 5
+          },
+          {
+            "name": "Gradle",
+            "seconds": 434
+          },
+          {
+            "name": "Package",
+            "seconds": 0.167
+          }
+        ],
+        "gradleTaskGroups": {
+          "Java / Kotlin": {
+            "seconds": 361.583,
+            "total": 60,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 246.871
+          },
+          "Other": {
+            "seconds": 32.77900000000002,
+            "total": 347,
+            "cached": 44,
+            "upToDate": 10,
+            "wallSeconds": 22.465000000000007
+          },
+          "Resources": {
+            "seconds": 11.817999999999998,
+            "total": 102,
+            "cached": 29,
+            "upToDate": 13,
+            "wallSeconds": 10.201999999999998
+          },
+          "Package": {
+            "seconds": 50.86699999999998,
+            "total": 75,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 36.852000000000004
+          },
+          "Native C++": {
+            "seconds": 961.3039999999999,
+            "total": 64,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 315.97400000000005
+          },
+          "Lint": {
+            "seconds": 169.79300000000003,
+            "total": 88,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 148.75300000000001
+          },
+          "JS / Hermes": {
+            "seconds": 42.373,
+            "total": 1,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 42.373
+          },
+          "Dex": {
+            "seconds": 57.439,
+            "total": 3,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 57.439
+          }
+        },
+        "gradleTimelineSeconds": 413.657,
+        "gradleTopTasks": [
+          {
+            "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+            "seconds": 102.514,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-screens:compileReleaseKotlin",
+            "seconds": 73.285,
+            "status": "executed",
+            "category": "Java / Kotlin"
+          },
+          {
+            "name": ":expo-modules-core:compileReleaseKotlin",
+            "seconds": 69.024,
+            "status": "executed",
+            "category": "Java / Kotlin"
+          },
+          {
+            "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[armeabi-v7a]",
+            "seconds": 65.087,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-screens:lintVitalAnalyzeRelease",
+            "seconds": 61.812,
+            "status": "executed",
+            "category": "Lint"
+          },
+          {
+            "name": ":expo-sqlite:buildCMakeRelWithDebInfo[armeabi-v7a]",
+            "seconds": 53.796,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":app:mergeExtDexRelease",
+            "seconds": 52.781,
+            "status": "executed",
+            "category": "Dex"
+          },
+          {
+            "name": ":shopify_react-native-skia:buildCMakeRelWithDebInfo[arm64-v8a]",
+            "seconds": 51.102,
+            "status": "executed",
+            "category": "Native C++"
+          }
+        ]
+      },
+      {
+        "cache": "warm",
+        "durationSeconds": 157.553,
+        "endToEndSeconds": 170.343,
+        "provisionSetupSeconds": 0,
+        "artifactUploadSeconds": 6.461,
+        "pollingAndPublishSeconds": 6.327,
+        "cpuAverage": 66.24883690355176,
+        "cpuPeak": 100,
+        "memoryPeakGiB": 6.133659362792969,
+        "memoryMinAvailableGiB": 9.483501434326172,
+        "diskDeltaGiB": 6.611885070800781,
+        "swapPeakMiB": 86.00390625,
+        "artifactMiB": 173.40892887115479,
+        "artifactSha256": "11fdfcfa38b459d611d979ce9ed8052a7174d5dc9922c53019e67f933cfc8bcb",
+        "oom": false,
+        "workers": 6,
+        "gradleHeapMiB": 4096,
+        "phases": [
+          {
+            "name": "EAS setup",
+            "seconds": 8.361
+          },
+          {
+            "name": "Checks",
+            "seconds": 3
+          },
+          {
+            "name": "Install",
+            "seconds": 2
+          },
+          {
+            "name": "Prebuild",
+            "seconds": 1
+          },
+          {
+            "name": "Signing",
+            "seconds": 0
+          },
+          {
+            "name": "Metro",
+            "seconds": 1
+          },
+          {
+            "name": "Gradle",
+            "seconds": 142
+          },
+          {
+            "name": "Package",
+            "seconds": 0.192
+          }
+        ],
+        "gradleTaskGroups": {
+          "Java / Kotlin": {
+            "seconds": 5.0969999999999995,
+            "total": 60,
+            "cached": 32,
+            "upToDate": 0,
+            "wallSeconds": 3.9450000000000003
+          },
+          "Other": {
+            "seconds": 11.329999999999995,
+            "total": 347,
+            "cached": 106,
+            "upToDate": 10,
+            "wallSeconds": 8.470999999999995
+          },
+          "Resources": {
+            "seconds": 5.757999999999994,
+            "total": 102,
+            "cached": 55,
+            "upToDate": 13,
+            "wallSeconds": 4.400999999999997
+          },
+          "Package": {
+            "seconds": 11.253,
+            "total": 75,
+            "cached": 1,
+            "upToDate": 0,
+            "wallSeconds": 10.210999999999999
+          },
+          "Native C++": {
+            "seconds": 356.5730000000001,
+            "total": 64,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 119.57199999999997
+          },
+          "Lint": {
+            "seconds": 7.048,
+            "total": 88,
+            "cached": 23,
+            "upToDate": 0,
+            "wallSeconds": 5.946999999999998
+          },
+          "JS / Hermes": {
+            "seconds": 25.198,
+            "total": 1,
+            "cached": 0,
+            "upToDate": 0,
+            "wallSeconds": 25.198
+          },
+          "Dex": {
+            "seconds": 1.392,
+            "total": 3,
+            "cached": 3,
+            "upToDate": 0,
+            "wallSeconds": 1.392
+          }
+        },
+        "gradleTimelineSeconds": 135.812,
+        "gradleTopTasks": [
+          {
+            "name": ":app:configureCMakeRelWithDebInfo[arm64-v8a]",
+            "seconds": 86.814,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-gesture-handler:configureCMakeRelWithDebInfo[arm64-v8a]",
+            "seconds": 86.778,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]",
+            "seconds": 29.599,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":app:createBundleReleaseJsAndAssets",
+            "seconds": 25.198,
+            "status": "executed",
+            "category": "JS / Hermes"
+          },
+          {
+            "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a][reanimated]",
+            "seconds": 22.925,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]",
+            "seconds": 16.578,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":react-native-reanimated:buildCMakeRelWithDebInfo[x86][reanimated]",
+            "seconds": 16.432,
+            "status": "executed",
+            "category": "Native C++"
+          },
+          {
+            "name": ":expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+            "seconds": 11.472,
+            "status": "executed",
+            "category": "Native C++"
+          }
+        ]
+      }
+    ]
+  },
+  "conclusions": [
+    "Raw delivered artifacts faster than Docker in both matched control runs. Docker was 13.6s faster for cold EAS only, and 11.7s slower warm.",
+    "Four workers and 6 GiB produced the lowest observed core warm time; six then eight workers produced the lowest combined end-to-end pair. Neither proves a universal default.",
+    "Compiler caching adds cold work but reduces warm compilation. Matched Docker/raw warm compiler stats: 448 direct hits, zero misses; 816 PCH-related uncacheable calls.",
+    "GC pauses were under one second on warm builds; larger heap alone is not supported as the next optimization.",
+    "Native CMake configuration remains a substantial warm cost. Parallel task durations overlap and must not be added as wall time.",
+    "No OOM recorded across the 22 completed builds."
+  ],
+  "deviceVerification": {
+    "fastestCold": {
+      "benchmarkVersion": 2,
+      "strategyId": "S6",
+      "sourceSHA": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+      "artifactSHA": "cd8826358cac0c1ec5e9f3c76259792008a5d13308cfc216ffd61d4ead291f9f",
+      "artifactBytes": 181848825,
+      "architectures": [
+        "armeabi-v7a",
+        "arm64-v8a",
+        "x86",
+        "x86_64"
+      ],
+      "target": {
+        "serial": "emulator-5554",
+        "android": 17,
+        "abi": "arm64-v8a",
+        "package": "ai.yast.nativelab",
+        "activity": "ai.yast.nativelab.MainActivity"
+      },
+      "visibleBehavior": [
+        "Launched Native Lab foreground activity",
+        "Home screen rendered Skia/Reanimated/SQLite/sensor benchmark UI",
+        "SQLite sample action increased Stored samples from 0 to 4",
+        "Capture screen rendered and triggered Android camera runtime permission dialog"
+      ],
+      "evidence": {
+        "home": "v2-S6-cold.png",
+        "sqlite": "v2-S6-sqlite.png",
+        "cameraPermission": "v2-S6-camera-permission.png",
+        "foreground": "foreground.txt",
+        "logcat": "launch-evidence.txt"
+      },
+      "verifiedAt": "2026-10-07T23:15:55.296Z"
+    },
+    "fastestWarm": {
+      "benchmarkVersion": 2,
+      "strategyId": "S2",
+      "sourceSHA": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+      "artifactSHA": "ea71838edce1dbcf73ea865c41f6c55cbb8863cedec15686a9da84015af06ae4",
+      "artifactBytes": 181832441,
+      "architectures": [
+        "armeabi-v7a",
+        "arm64-v8a",
+        "x86",
+        "x86_64"
+      ],
+      "timing": {
+        "durationSeconds": 143.021,
+        "endToEndSeconds": 153.371
+      },
+      "target": {
+        "serial": "emulator-5554",
+        "android": 17,
+        "abi": "arm64-v8a",
+        "package": "ai.yast.nativelab",
+        "activity": "ai.yast.nativelab.MainActivity"
+      },
+      "visibleBehavior": [
+        "Installed over existing app without data clear",
+        "Launched Native Lab foreground activity",
+        "Rendered native Skia/Reanimated/SQLite/sensor home UI",
+        "SQLite sample action displayed Stored samples: 5"
+      ],
+      "evidence": {
+        "launch": "v2-S2-warm-launch.png",
+        "sqlite": "v2-S2-warm-sqlite.png",
+        "foreground": "winner-foreground.txt",
+        "logcat": "winner-logcat.txt"
+      },
+      "verifiedAt": "2026-10-07T23:20:59.997Z"
+    }
+  },
+  "dockerTemplate": {
+    "name": "android-build-tools-v6-docker",
+    "sourceVm": "bx_u3r5tcxx",
+    "sourceTemplate": "android-build-tools-v5",
+    "snapshotId": "33657aff-e8d7-452c-8c1f-007c2ddad6df",
+    "sizeBytes": 8179351552,
+    "status": "ready",
+    "dockerImage": "android-toolchain:node24-bun1.4.2",
+    "imagePersistedAs": "/opt/android-toolchain/android-image.tar",
+    "hostSdkMountedAtRuntime": true,
+    "applicationSourceIncluded": false,
+    "credentialsIncluded": false,
+    "manifestComplete": true,
+    "manifestEntries": 159496,
+    "runtimeCredentialPaths": [],
+    "applicationArtifacts": [],
+    "validatedAt": "2026-10-07T23:23:00Z"
+  }
+}
