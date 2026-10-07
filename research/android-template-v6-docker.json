@@ -1,0 +1,18 @@
+{
+  "name": "android-build-tools-v6-docker",
+  "sourceVm": "bx_u3r5tcxx",
+  "sourceTemplate": "android-build-tools-v5",
+  "snapshotId": "33657aff-e8d7-452c-8c1f-007c2ddad6df",
+  "sizeBytes": 8179351552,
+  "status": "ready",
+  "dockerImage": "android-toolchain:node24-bun1.4.2",
+  "imagePersistedAs": "/opt/android-toolchain/android-image.tar",
+  "hostSdkMountedAtRuntime": true,
+  "applicationSourceIncluded": false,
+  "credentialsIncluded": false,
+  "manifestComplete": true,
+  "manifestEntries": 159496,
+  "runtimeCredentialPaths": [],
+  "applicationArtifacts": [],
+  "validatedAt": "2026-10-07T23:23:00Z"
+}
