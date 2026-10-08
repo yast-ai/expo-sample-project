@@ -1,0 +1,59 @@
+{
+  "version": 3,
+  "name": "Cold \u00b7 4 ABI",
+  "template": "android-build-tools-v5",
+  "publicSourceSha": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+  "privateSourceSha": "3f9f1b032919bf2cd653efa30ae50016f9d9487b",
+  "expectedBuilds": 14,
+  "sandboxAllowance": 20,
+  "strategies": [
+    {
+      "id": "A",
+      "name": "Baseline",
+      "workers": 6,
+      "heapMiB": 4096,
+      "pch": false,
+      "ninjaJobs": 0
+    },
+    {
+      "id": "B",
+      "name": "Codegen PCH",
+      "workers": 6,
+      "heapMiB": 4096,
+      "pch": true,
+      "ninjaJobs": 0
+    },
+    {
+      "id": "C",
+      "name": "Ninja 4",
+      "workers": 6,
+      "heapMiB": 4096,
+      "pch": false,
+      "ninjaJobs": 4
+    },
+    {
+      "id": "D",
+      "name": "PCH + Ninja 4",
+      "workers": 6,
+      "heapMiB": 4096,
+      "pch": true,
+      "ninjaJobs": 4
+    }
+  ],
+  "plannedReplicas": {
+    "native-heavy": {
+      "A": 2,
+      "B": 1,
+      "C": 2,
+      "D": 1
+    },
+    "disposabl": {
+      "A": 2,
+      "B": 2,
+      "C": 2,
+      "D": 2
+    }
+  },
+  "setupExcluded": 5,
+  "hardwareExcluded": 1
+}

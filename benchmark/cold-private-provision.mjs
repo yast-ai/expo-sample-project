@@ -1,0 +1,10 @@
+import fs from 'node:fs';import {createRequire} from 'node:module';
+const {BoatApi,Configuration}=createRequire(import.meta.url)('../backend/node_modules/@boatdev/sdk/dist/index.js');
+const api=new BoatApi(new Configuration({accessToken:fs.readFileSync('/private/tmp/expo-sample-boat-key','utf8').trim()}));
+const matrix=JSON.parse(fs.readFileSync('benchmark/cold-matrix.json'));
+const lanes=[['B',1,'1'],['C',1,''],['D',1,''],['A',2,''],['B',2,''],['C',2,''],['D',2,'']];
+const results=await Promise.allSettled(lanes.map(async([strategyId,replica,attempt])=>{
+ const strategy=matrix.strategies.find(s=>s.id===strategyId),id=`cold-disposabl-${strategyId}-${replica}-1791418500000${attempt?'-retry'+attempt:''}`,file='benchmark/jobs/'+id+'.json';
+ const job={id,project:'disposabl',private:true,profile:'preview',benchmarkVersion:3,strategyId,strategy,sourceSha:matrix.privateSourceSha,lane:'cold',config:`${strategyId} · ${strategy.name} · R${replica}`,workers:6,heap:4096,status:'starting',createdAt:Date.now(),awaitingPrivateTransferApproval:true,runs:[{project:'disposabl',profile:'preview',cache:'cold',benchmarkVersion:3,strategyId,strategy,replica,sourceSha:matrix.privateSourceSha,architectures:['armeabi-v7a','arm64-v8a','x86','x86_64'],workers:6,gradleHeapMiB:4096,metroWorkers:4,kotlinStrategy:'in-process',ccache:false,pch:strategy.pch,ninjaJobs:strategy.ninjaJobs,docker:false,status:'queued'}]};
+ fs.writeFileSync(file,JSON.stringify(job,null,2));const r=await api.create({idempotencyKey:id,createSandboxRequest:{type:'large',ttlSeconds:2400,noEnv:true,snapshots:false,from:matrix.template,env:{},setupScript:'mkdir -p /home/user/benchmark-cold\nfor attempt in {1..1800}; do test -f /tmp/cold-launch.sh && exec bash /tmp/cold-launch.sh; sleep 1; done\necho ERROR > /home/user/benchmark-cold/cold.status'}});job.sandboxId=r.sandbox.id;fs.writeFileSync(file,JSON.stringify(job,null,2));return {strategyId,replica,attempt,sandboxId:job.sandboxId,privateTransferred:false};
+}));for(const result of results)console.log(JSON.stringify(result.status==='fulfilled'?result.value:{error:result.reason.name}));
