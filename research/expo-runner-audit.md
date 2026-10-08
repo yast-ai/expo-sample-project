@@ -26,3 +26,15 @@ PCH activation was verified in generated app headers and Ninja rules. In one com
 2. **Project-cold / public-native-dependencies-seeded.** A separate clean public harness can populate a compiler cache for public dependency translation units across all four ABIs. Exclude app code, generated code and any private-source inputs. Validate exact compiler flags, public header provenance and invalidation across unrelated projects. Reanimated/Worklets PCH can limit reuse; do not silently enable ccache settings that relax validation.
 
 Both classes must remain distinct from tools/Maven-only source-cold results. A broad native dependency seed has more potential than a single-library seed because native dependencies overlap. Neither has a measured savings claim yet. R8, Metro, app compilation and packaging remain real work. See the [ccache manual](https://ccache.dev/manual/latest.html) and the Astra review for the cache boundary and validation requirements.
+
+## Private R8 snapshot
+
+A read-only snapshot during the baseline run confirmed R8 9.2.14 executing in the Gradle JVM. Five of eight R8 ForkJoin workers were runnable. Java heap usage was 2.89 GiB of 4.00 GiB. In the matched 11.2-second snapshot window, 48 completed GC pauses totaled 0.863 seconds; the longest was 47.4 milliseconds. This is a short window, not the full R8 phase. It establishes active CPU work and some GC overhead, without a heap-exhaustion signal. It does not establish a larger heap as a route to hundreds of seconds of savings.
+
+## CPU throughput and concurrent experiments
+
+Eight visible guest CPUs do not establish eight exclusive physical cores. Boat lists its standard large VM size and Ryzen hosts, but does not publish placement, pinning or SMT guarantees. Its managed-service terms permit resource throttling and migration. AMD lists the 9950X as 16 cores / 32 threads with up to 5.7 GHz boost; that is a single-core burst capability, not a sustained all-core clock guarantee.
+
+Most measured guest steal averages were below 0.12%; the combined Native treatment showed materially more steal. Low steal does not prove identical physical throughput or exclude SMT/cache/memory contention. No current evidence proves that our parallel VMs shared a host. A randomized, repeated single-VM versus concurrent-burst comparison would measure that effect; provider placement telemetry would be needed to attribute it to physical allocation.
+
+Sources: [Boat capacity](https://boat.dev/compare), [Boat terms](https://boat.dev/terms), [AMD 9950X specifications](https://www.amd.com/en/products/processors/desktops/ryzen/9000-series/amd-ryzen-9-9950x.html), [AMD boost definition](https://www.amd.com/en/technologies/zen-core.html).

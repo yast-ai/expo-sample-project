@@ -9,7 +9,7 @@ const jobsDir = path.join(root, 'benchmark/jobs');
 const evidenceDir = path.join(root, 'verification/benchmarks');
 const output = path.join(root, 'research/cold-analysis.json');
 const finite = n => Number.isFinite(n) ? n : null;
-const number = n => Number.isFinite(Number(n)) ? Number(n) : null;
+const number = n => n === null || n === undefined || n === '' ? null : Number.isFinite(Number(n)) ? Number(n) : null;
 const read = file => fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
 const json = file => { try { return JSON.parse(read(file)); } catch { return null; } };
 
@@ -117,6 +117,7 @@ export function analyze({jobsDirectory=jobsDir, evidenceDirectory=evidenceDir}={
   return {schemaVersion:1,generatedAt:new Date().toISOString(),scope:'benchmarkVersion=3 cold success and running runs only; no source paths, source content, logs, sandbox IDs, or source revisions',cpuTicks:{unit:'clock-ticks',clockTicksPerSecond:100,gcThreadKey:'PID plus tid, or PID plus name for older sampler rows'},recipes:aggregate(rows),runCount:rows.length};
 }
 export function selfTest() {
+  if (metricsSummary([{time:1,cpuSteal:null,cgroup:null}],0,2).cpuStealPercentAverage !== null) throw Error('unavailable metric must not become zero');
   const intervals=[[0,100],[50,150],[500,600]]; if (mergedSeconds(intervals)!==0.25) throw Error('overlap merge regression');
   const tasks=taskTiming([{task:':a:configureCMake',startEpochMs:0,endEpochMs:100},{task:':a:configureCMake',startEpochMs:0,endEpochMs:100},{task:':a:configureCMake',startEpochMs:50,endEpochMs:150}],0,200);
   if (tasks.native.wallSeconds!==0.15||tasks.native.taskWorkSeconds!==0.2||tasks.native.n!==2) throw Error('task de-dup regression');
