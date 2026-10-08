@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "name": "Cold \u00b7 4 ABI",
+  "template": "android-build-tools-v5",
+  "publicSourceSha": "bae0ad91a27b152de2aeaef53db430bf78e5aec9",
+  "privateSourceSha": "3f9f1b032919bf2cd653efa30ae50016f9d9487b",
+  "expectedBuilds": 2,
+  "sandboxAllowance": 2,
+  "strategies": [
+    {
+      "id": "X",
+      "name": "16 CPU",
+      "machineType": "xlarge",
+      "workers": 12,
+      "heapMiB": 8192,
+      "metroWorkers": 4,
+      "pch": true,
+      "ninjaJobs": 8
+    }
+  ],
+  "plannedReplicas": {
+    "native-heavy": {
+      "A": 2,
+      "B": 1,
+      "C": 2,
+      "D": 1
+    },
+    "disposabl": {
+      "A": 2,
+      "B": 2,
+      "C": 2,
+      "D": 2
+    }
+  },
+  "setupExcluded": 5,
+  "hardwareExcluded": 1
+}
